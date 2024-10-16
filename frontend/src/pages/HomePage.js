@@ -1,12 +1,13 @@
-import React from "react";
-import Navbar from "../components/Navbar/Navbar";
+// src/pages/HomePage.js
+import React from 'react';
 
-function HomePage() {
-    return (
-        <div>
-            <Navbar />
-        </div>
-    );
-}
+const HomePage = () => {
+  return (
+    <div>
+      <h2>Welcome to NerdNest!</h2>
+      <p>Your one-stop shop for all things nerdy.</p>
+    </div>
+  );
+};
 
 export default HomePage;

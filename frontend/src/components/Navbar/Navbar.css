@@ -1,0 +1,44 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fff; /* White background for minimalism */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .brand {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .nav-search {
+    position: relative;
+  }
+  
+  .search-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px; /* Adjust size as needed */
+  }
+  
+  .nav {
+    list-style: none;
+    display: flex;
+    gap: 1rem; /* Spacing between nav items */
+  }
+  
+  .nav-item {
+    display: inline-block;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #333; /* Dark text for contrast */
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline; /* Underline effect on hover */
+  }
+  
