@@ -7,6 +7,7 @@ require('dotenv').config();
 //Add Routes
 const userRoutes = require('./routes/userRoutes.js');
 const productRoutes = require('./routes/productRoutes.js')
+const cartRoutes = require('./routes/cartRoutes.js')
 
 //App Config
 const app = express();
@@ -21,6 +22,7 @@ app.use(cors());
 // API Endpoints
 app.use("/user", userRoutes );
 app.use("/product", productRoutes)
+app.use("/cart", cartRoutes)
 
 
 app.get("/", (req, res) => {

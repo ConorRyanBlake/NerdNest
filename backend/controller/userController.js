@@ -4,7 +4,7 @@ const userModel = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
 const createToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET)
+    return jwt.sign({ id }, process.env.JWT_SECRET)
 }
 
 // User Registration
@@ -93,3 +93,18 @@ exports.adminLogin = async (req, res) => {
         res.json({success: false, message: error.message})
     }
 }   
+
+// Get user profile
+exports.getUser = async (req, res) => {
+
+}
+
+// Update user profile
+exports.updateUser = async (req, res) => {
+
+}
+
+//Logout User
+exports.logoutUser = async (req, res) => {
+    
+}
