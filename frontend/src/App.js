@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
 import NavbarMain from "./components/Navbar/Navbar";
-import HomePage from './pages/HomePage';
-import Login from './components/Login/Login';
+import Home from './pages/Home';
+import Login from './pages/Login/Login';
+import SignUp from './pages/SignUp/SignUp';
+import Collection from './pages/Collection/Collection';
+import Product from './pages/Product/Product';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -16,8 +19,11 @@ function App() {
     <div className="App">
       <NavbarMain username={username} />
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login onLogin={handleLogin}/>} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/products' element={<Collection />} />
+        <Route path='/product/:productId' element={<Product />} />
       </Routes>
     </div>
     </Router>

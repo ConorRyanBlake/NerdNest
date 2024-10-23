@@ -81,7 +81,7 @@ exports.removeProduct = async (req, res) => {
 // Single product info
 exports.singleProduct = async (req, res) => {
   try {
-    const { productId } = req.body;
+    const { productId } = req.params;
     const product = await productModel.findById(productId);
     res.json({ success: true, product });
   } catch (error) {

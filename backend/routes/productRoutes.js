@@ -24,6 +24,6 @@ router.get("/list", productController.listProduct);
 router.delete("/remove", adminAuth, productController.removeProduct);
 
 //Route to single product
-router.get("/single", productController.singleProduct);
+router.get("/single/:productId", productController.singleProduct);
 
 module.exports = router;

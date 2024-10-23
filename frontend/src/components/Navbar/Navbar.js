@@ -1,25 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaSearch } from "react-icons/fa"; // Import search icon
+import {
+  FaSearch,
+  FaUserCircle,
+  FaCartArrowDown,
+  FaBars,
+} from "react-icons/fa";
 import "./Navbar.css";
 
 const NavbarMain = ({ username }) => {
   const [searchVisible, setSearchVisible] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarVisible((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (username) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [username]);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const toggleSearch = () => {
     setSearchVisible((prev) => !prev);
   };
 
   return (
-    <header className="navbar">
+    <header className="navbar navbar-expand-lg bg-light">
       <nav className="container">
-        <div className="nav-brand">
+        <div className="navbar-brand">
           <Link className="nav-link" to="/">
             <h1>NerdNest</h1>
           </Link>
         </div>
-        <div className="nav-menu">
-          <ul className="nav">
+        <button className="navbar-toggler" type="button">
+          <FaBars onClick={toggleSidebar} />
+        </button>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item"><a href="/">Home</a></li>
+            <li className="nav-item"><a href="/products">Products</a></li>
+          </ul>
+        </div>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <div className="nav-search">
                 {searchVisible ? (
@@ -28,48 +61,80 @@ const NavbarMain = ({ username }) => {
                       type="text"
                       placeholder="Search..."
                       onBlur={() => setSearchVisible(false)}
+                      className="form-control"
                     />
-                    <button className="search-icon">
+                    <button className="btn btn-outline-secondary search-icon">
                       <FaSearch />
                     </button>
                   </>
                 ) : (
-                  <button className="search-icon" onClick={toggleSearch}>
+                  <button
+                    className="btn btn-outline-secondary search-icon"
+                    onClick={toggleSearch}
+                  >
                     <FaSearch />
                   </button>
                 )}
               </div>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/favorite">
-                Favorite
+              <Link className="nav-link" to="/cart">
+                <FaCartArrowDown />
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                Cart
-              </Link>
+              <div className="profile-section">
+                <FaUserCircle className="profile-icon" onClick={toggleMenu} />
+                {isMenuOpen && (
+                  <div className="menu">
+                    {isLoggedIn ? (
+                      <>
+                        <a href="/profile" className="menu-item">
+                          My Profile: {username}
+                        </a>
+                        <a href="/orders" className="menu-item">
+                          Orders
+                        </a>
+                        <a href="/logout" className="menu-item">
+                          LogOut
+                        </a>
+                      </>
+                    ) : (
+                      <a href="/login" className="menu-item">
+                        Login
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
             </li>
-            {username ? (
-              <li className="nav-item">
-                <span className="nav-link">Welcome, {username}</span>
-              </li>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Register
-                  </Link>
-                </li>
-              </>
-            )}
           </ul>
         </div>
+        {/* Sidebar */}
+        {sidebarVisible && (
+          <div className={`sidebar ${sidebarVisible ? "show" : ""}`}>
+            <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+            <div className="sidebar-content">
+              <ul>
+                <li>
+                  <Link to="/" onClick={toggleSidebar}>
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/products" onClick={toggleSidebar}>
+                    Products
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/cart">
+                    Cart
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );
