@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Product.css";
+import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 
 const Product = () => {
   const { productId } = useParams();
@@ -43,9 +44,19 @@ const Product = () => {
         <h1 className="product-name">{product.name}</h1>
         <p className="product-description">{product.description}</p>
         <p className="product-price">Price: R{product.price}</p>
+        <p>Select Size</p>
+        <div className="product-sizes">
+          {product.sizes.map((size, index) => (
+            <button key={index}>{size}</button>
+          ))}
+        </div>
+
         <button className="add-to-cart" >
           Add to Cart
         </button>
+      </div>
+      <div className="related-products">
+        <RelatedProducts />
       </div>
     </div>
   );

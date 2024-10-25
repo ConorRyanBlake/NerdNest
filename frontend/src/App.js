@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import NavbarMain from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 import Home from './pages/Home';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
@@ -25,6 +26,7 @@ function App() {
         <Route path='/products' element={<Collection />} />
         <Route path='/product/:productId' element={<Product />} />
       </Routes>
+      <Footer />
     </div>
     </Router>
   );
