@@ -21,7 +21,7 @@ function Login({ onLogin }) {
       const token = data.data.token;
       const username = data.data.username;
 
-      sessionStorage.setItem("token", token);
+      localStorage.setItem("token", token);
       onLogin(username);
       setSuccess("Login successful");
       setError("");

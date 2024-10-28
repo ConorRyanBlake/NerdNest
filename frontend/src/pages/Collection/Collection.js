@@ -7,7 +7,6 @@ const Collection = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [category, setCategory] = useState([]);
-  const [subCategory, setSubCategory] = useState([]);
   const [sortOption, setSortOption] = useState("relevant");
 
   // Toggle Category Filter
@@ -17,16 +16,6 @@ const Collection = () => {
       setCategory(category.filter((item) => item !== selectedCategory));
     } else {
       setCategory([...category, selectedCategory]);
-    }
-  };
-
-  // Toggle Subcategory Filter
-  const toggleSubCategory = (e) => {
-    const selectedSubCategory = e.target.value;
-    if (subCategory.includes(selectedSubCategory)) {
-      setSubCategory(subCategory.filter((item) => item !== selectedSubCategory));
-    } else {
-      setSubCategory([...subCategory, selectedSubCategory]);
     }
   };
 
@@ -54,18 +43,12 @@ const Collection = () => {
         );
       }
 
-      // Apply Subcategory Filter
-      if (subCategory.length > 0) {
-        updatedProducts = updatedProducts.filter((product) =>
-          subCategory.includes(product.subcategory)
-        );
-      }
 
       setFilteredProducts(updatedProducts);
     };
 
     filterByCategoryAndSubCategory();
-  }, [category, subCategory, products]);
+  }, [category, products]);
 
   // Sort products based on selected sort option without causing an infinite loop
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -101,19 +84,6 @@ const Collection = () => {
           </p>
         </div>
 
-        {/* Subcategory Filter */}
-        <div className="subcategory-filter">
-          <p>Sub-Category</p>
-          <p>
-            <input type="checkbox" value="Shirts" onChange={toggleSubCategory} /> Shirts
-          </p>
-          <p>
-            <input type="checkbox" value="Pants" onChange={toggleSubCategory} /> Pants
-          </p>
-          <p>
-            <input type="checkbox" value="Winter" onChange={toggleSubCategory} /> Winter
-          </p>
-        </div>
       </div>
 
       {/* Product Sort */}
