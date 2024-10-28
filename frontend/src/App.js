@@ -7,6 +7,7 @@ import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import Collection from './pages/Collection/Collection';
 import Product from './pages/Product/Product';
+import Cart from './pages/Cart/Cart';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/products' element={<Collection />} />
         <Route path='/product/:productId' element={<Product />} />
+        <Route path='/cart' element={<Cart />} />
       </Routes>
       <Footer />
     </div>
