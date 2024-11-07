@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaSearch,
@@ -8,23 +8,15 @@ import {
 } from "react-icons/fa";
 import "./Navbar.css";
 
-const NavbarMain = ({ username }) => {
+const NavbarMain = ({ user, onLogout }) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarVisible((prev) => !prev);
   };
-
-  useEffect(() => {
-    if (username) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [username]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -87,17 +79,17 @@ const NavbarMain = ({ username }) => {
                 <FaUserCircle className="profile-icon" onClick={toggleMenu} />
                 {isMenuOpen && (
                   <div className="menu">
-                    {isLoggedIn ? (
+                    {user ? (
                       <>
                         <a href="/profile" className="menu-item">
-                          My Profile: {username}
+                          My Profile: {user.username}
                         </a>
                         <a href="/orders" className="menu-item">
                           Orders
                         </a>
-                        <a href="/logout" className="menu-item">
+                        <button onClick={onLogout} className="menu-item">
                           LogOut
-                        </a>
+                        </button>
                       </>
                     ) : (
                       <a href="/login" className="menu-item">
@@ -127,7 +119,7 @@ const NavbarMain = ({ username }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/cart">
+                  <Link to="/cart" onClick={toggleSidebar}>
                     Cart
                   </Link>
                 </li>
