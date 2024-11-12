@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "./Cart.css"
 
-const CartPage = () => {
+const CartPage = ({ setItemCount}) => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -16,6 +16,9 @@ const CartPage = () => {
         });
         if (response.data.success) {
           setCartItems(response.data.cartData);
+          // Calculate total item count
+          const totalItems = response.data.cartData.reduce((acc, item) => acc + item.quantity, 0);
+          setItemCount(totalItems);
         } else {
           console.error("Failed to fetch cart data:", response.data.message);
         }

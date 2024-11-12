@@ -8,10 +8,9 @@ import {
 } from "react-icons/fa";
 import "./Navbar.css";
 
-const NavbarMain = ({ user, onLogout }) => {
+const NavbarMain = ({ user, onLogout, itemCount }) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const toggleSidebar = () => {
@@ -69,9 +68,10 @@ const NavbarMain = ({ user, onLogout }) => {
                 )}
               </div>
             </li>
-            <li className="nav-item">
+            <li className="nav-item cart-icon-container">
               <Link className="nav-link" to="/cart">
                 <FaCartArrowDown />
+                {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
               </Link>
             </li>
             <li className="nav-item">

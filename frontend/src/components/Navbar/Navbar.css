@@ -148,6 +148,20 @@
 .hamburger-icon {
   display: none;
 }
+.cart-icon-container {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 12px;
+}
 
 @media screen and (max-width: 768px) {
   .hamburger-icon {

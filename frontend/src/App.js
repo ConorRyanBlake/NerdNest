@@ -13,6 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [itemCount, setItemCount] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -38,14 +39,14 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <NavbarMain user={user} onLogout={handleLogout} />
+      <NavbarMain user={user} onLogout={handleLogout} itemCount={itemCount} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login onLogin={handleLogin}/>} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/products' element={<Collection />} />
         <Route path='/product/:productId' element={<Product user={user?.id} />} />
-        <Route path='/cart' element={<Cart />} />
+        <Route path='/cart' element={<Cart setItemCount={setItemCount} />} />
       </Routes>
       <Footer />
     </div>
