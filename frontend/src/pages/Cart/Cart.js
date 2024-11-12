@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import "./Cart.css"
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
-  const userId = "user-id"; // Replace with actual user ID from your auth system
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await axios.post('http://localhost:4000/cart/get', { userId });
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:4000/cart/get', {
+          headers: {
+            token,
+          }
+        });
         if (response.data.success) {
           setCartItems(response.data.cartData);
+        } else {
+          console.error("Failed to fetch cart data:", response.data.message);
         }
       } catch (error) {
         console.error("Error fetching cart:", error);
@@ -21,15 +28,18 @@ const CartPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="cart-container">
       <h1>Your Cart</h1>
       {cartItems.length > 0 ? (
         cartItems.map((item) => (
-          <div key={`${item.itemId._id}-${item.size}`}>
-            <p>Product: {item.itemId.name}</p>
-            <p>Size: {item.size}</p>
-            <p>Quantity: {item.quantity}</p>
-            <p>Price: ${item.itemId.price}</p>
+          <div key={`${item.itemId._id}-${item.size}`} className="cart-item">
+            <img src={item.itemId.image} alt={item.itemId.name} className="product-image" />
+            <div className="cart-item-details">
+              <p className="product-name">{item.itemId.name}</p>
+              <p>Size: {item.size}</p>
+              <p>Quantity: {item.quantity}</p>
+              <p>Price: ${item.itemId.price}</p>
+            </div>
           </div>
         ))
       ) : (

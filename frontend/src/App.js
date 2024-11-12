@@ -18,6 +18,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       const decodedUser = jwtDecode(token);
+      console.log("Decoded user:", decodedUser);
       setUser(decodedUser);
     }
   }, []);
@@ -43,7 +44,7 @@ function App() {
         <Route path='/login' element={<Login onLogin={handleLogin}/>} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/products' element={<Collection />} />
-        <Route path='/product/:productId' element={<Product />} />
+        <Route path='/product/:productId' element={<Product user={user?.id} />} />
         <Route path='/cart' element={<Cart />} />
       </Routes>
       <Footer />
