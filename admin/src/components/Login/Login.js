@@ -26,7 +26,7 @@ const Login = ({ setToken }) => {
             <h1>Admin Panel</h1>
             <form onSubmit={onSubmitHandler}>
                 <div>
-                    <p>Email Adress</p>
+                    <p>Email Address</p>
                     <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Your email" required />
                 </div>
                 <div>
