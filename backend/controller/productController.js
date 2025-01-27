@@ -89,13 +89,3 @@ exports.singleProduct = async (req, res) => {
     console.log(error);
   }
 };
-
-// Update Product
-exports.updateProduct = async (req, res) => {
-
-}
-
-// Search Product
-exports.searchProduct = async (req, res) => {
-  
-}
