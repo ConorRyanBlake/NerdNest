@@ -27,9 +27,9 @@ function App() {
         <>
           <Navbar setToken={setToken} />
           <hr />
-          <div>
+          <div className="app-container">
             <Sidebar />
-            <div>
+            <div className="main-content">
               <Routes>
                 <Route path="/add" element={<Add token={token} />} />
                 <Route path="/list" element={<List token={token} />} />

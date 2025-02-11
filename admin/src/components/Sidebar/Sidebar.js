@@ -1,15 +1,15 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-
+import "./Sidebar.css"
 
 const Sidebar = () => {
     return (
         <div>
-            <div>
-                <NavLink to="/add">
+            <div className='sidebar'>
+                <NavLink to="/add" activeClassName="active">
                 <p>Add Items</p>
                 </NavLink>
-                <NavLink to="/List">
+                <NavLink to="/List" activeClassName="active">
                 <p>List Items</p>
                 </NavLink>
             </div>

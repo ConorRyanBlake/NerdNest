@@ -1,9 +1,10 @@
 import React from 'react'
+import "./Navbar.css"
 
 const Navbar = ({ setToken }) => {
     return (
-        <div>
-            <h1>navbar</h1>
+        <div className='navbar'>
+            <h1>NerdNest</h1>
             <button onClick={() => setToken("")}>Logout</button>
         </div>
     )
