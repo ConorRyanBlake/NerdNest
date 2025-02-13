@@ -26,7 +26,7 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
   };
 
   return (
-    <header className="navbar navbar-expand-lg bg-light">
+    <header className="navbar navbar-expand-lg">
       <nav className="container">
         <div className="navbar-brand">
           <Link className="nav-link" to="/">
@@ -38,8 +38,12 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
         </button>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item"><a href="/">Home</a></li>
-            <li className="nav-item"><a href="/products">Products</a></li>
+            <li className="nav-item">
+              <a href="/">Home</a>
+            </li>
+            <li className="nav-item">
+              <a href="/products">Products</a>
+            </li>
           </ul>
         </div>
         <div className="collapse navbar-collapse">
@@ -54,7 +58,7 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
                       onBlur={() => setSearchVisible(false)}
                       className="form-control"
                     />
-                    <button className="btn btn-outline-secondary search-icon">
+                    <button className="btn search-icon">
                       <FaSearch />
                     </button>
                   </>
@@ -71,7 +75,9 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
             <li className="nav-item cart-icon-container">
               <Link className="nav-link" to="/cart">
                 <FaCartArrowDown />
-                {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
+                {itemCount > 0 && (
+                  <span className="cart-count">{itemCount}</span>
+                )}
               </Link>
             </li>
             <li className="nav-item">

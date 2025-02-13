@@ -1,7 +1,7 @@
 /* Navbar Styles */
 .navbar {
   padding: 1rem;
-  background-color: #fff;
+  background-color: #121212;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
@@ -11,13 +11,13 @@
 .navbar-brand {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #00FFF7;
 }
 
 .navbar-toggler {
   border: none;
   font-size: 30px;
-  color: #333;
+  color: #E1E1E1;
   background: none;
 }
 
@@ -32,6 +32,7 @@
   border: none;
   cursor: pointer;
   font-size: 24px;
+  color: #00FFF7;
 }
 
 .navbar-nav {
@@ -42,7 +43,7 @@
 
 .nav-link {
   text-decoration: none;
-  color: #333; 
+  color: #00FFF7; 
 }
 
 .nav-item {
