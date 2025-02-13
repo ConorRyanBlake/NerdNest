@@ -1,118 +1,167 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import "./Collection.css";
 import axios from "axios";
+import "./Collection.css";
 
 const Collection = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [category, setCategory] = useState([]);
-  const [sortOption, setSortOption] = useState("relevant");
+  const [sortOption, setSortOption] = useState("recommended");
+  const [priceRange, setPriceRange] = useState([0, 1000]);
+
+  // Fetch Products from Backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/product/list");
+        console.log("Fetched products:", response.data);
+        setProducts(response.data.products);
+        setFilteredProducts(response.data.products); // Set initial filtered products
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Toggle Category Filter
   const toggleCategory = (e) => {
     const selectedCategory = e.target.value;
-    if (category.includes(selectedCategory)) {
-      setCategory(category.filter((item) => item !== selectedCategory));
-    } else {
-      setCategory([...category, selectedCategory]);
-    }
+    setCategory((prevCategory) =>
+      prevCategory.includes(selectedCategory)
+        ? prevCategory.filter((item) => item !== selectedCategory)
+        : [...prevCategory, selectedCategory]
+    );
   };
 
-  // Fetch Products from Backend
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get("http://localhost:4000/product/list");
-      console.log("Fetched products:", response.data);
-      setProducts(response.data.products);
-      setFilteredProducts(response.data.products); // Set initial filtered products
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
-  // Filter Products based on Category and Subcategory
+  // Filter Products based on Category and Price Range
   useEffect(() => {
-    const filterByCategoryAndSubCategory = () => {
-      let updatedProducts = products;
+    let updatedProducts = [...products];
 
-      // Apply Category Filter
-      if (category.length > 0) {
-        updatedProducts = updatedProducts.filter((product) =>
-          category.includes(product.category)
-        );
+    if (category.length > 0) {
+      updatedProducts = updatedProducts.filter((product) =>
+        category.includes(product.category)
+      );
+    }
+
+    updatedProducts = updatedProducts.filter(
+      (product) =>
+        product.price >= priceRange[0] && product.price <= priceRange[1]
+    );
+
+    setFilteredProducts(updatedProducts);
+  }, [category, priceRange, products]);
+
+  // Sort products
+  const getSortedProducts = () => {
+    return [...filteredProducts].sort((a, b) => {
+      switch (sortOption) {
+        case "low-high":
+          return a.price - b.price;
+        case "high-low":
+          return b.price - a.price;
+        case "a-z":
+          return a.name.localeCompare(b.name);
+        case "z-a":
+          return b.name.localeCompare(a.name);
+
+        default:
+          return 0; // No sorting applied (recommended)
       }
-
-
-      setFilteredProducts(updatedProducts);
-    };
-
-    filterByCategoryAndSubCategory();
-  }, [category, products]);
-
-  // Sort products based on selected sort option without causing an infinite loop
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortOption === "low-high") {
-      return a.price - b.price;
-    } else if (sortOption === "high-low") {
-      return b.price - a.price;
-    }
-    return 0; // Default to no sorting (relevant)
-  });
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+    });
+  };
 
   return (
-    <div>
+    <>
       {/* Filter Options */}
       <div className="filter-options">
-        <p>Filters</p>
-
         {/* Category Filter */}
         <div className="category-filter">
-          <p>Category</p>
-          <p>
-            <input type="checkbox" value="Men" onChange={toggleCategory} /> Men
-          </p>
-          <p>
-            <input type="checkbox" value="Women" onChange={toggleCategory} /> Women
-          </p>
-          <p>
-            <input type="checkbox" value="Kids" onChange={toggleCategory} /> Kids
-          </p>
+          <p>Browse by</p>
+          {["Men", "Women", "Kids"].map((cat) => (
+            <p key={cat}>
+              <input
+                type="checkbox"
+                value={cat}
+                onChange={toggleCategory}
+                checked={category.includes(cat)}
+              />{" "}
+              {cat}
+            </p>
+          ))}
         </div>
 
-      </div>
-
-      {/* Product Sort */}
-      <div className="product-sort">
-        <select onChange={(e) => setSortOption(e.target.value)}>
-          <option value="relevant">Sort by: Relevant</option>
-          <option value="low-high">Sort by: Low-to-High</option>
-          <option value="high-low">Sort by: High-to-Low</option>
-        </select>
+        {/* Price Slider */}
+        <div className="price-filter">
+          <p>
+            Price Range: R{priceRange[0]} - R{priceRange[1]}{" "}
+          </p>
+          <input
+            type="range"
+            className="min-range"
+            min="0"
+            max="1000"
+            step="10"
+            value={priceRange[0]}
+            onChange={(e) =>
+              setPriceRange([Number(e.target.value), priceRange[1]])
+            }
+          />
+          <input
+            type="range"
+            className="max-range"
+            min="0"
+            max="1000"
+            step="10"
+            value={priceRange[1]}
+            onChange={(e) =>
+              setPriceRange([priceRange[0], Number(e.target.value)])
+            }
+          />
+        </div>
       </div>
 
       {/* Title */}
-      <div className="title">
-        <h1>Products</h1>
+      <div className="product-title">
+        <h1>All Products</h1>
       </div>
+      <div className="product-container">
+        <div className="product-count">
+          <p>{filteredProducts.length} products</p>
+        </div>
 
-      {/* Display Sorted Products */}
-      <div className="container mt-3">
-        <div className="product-grid">
-          {sortedProducts.length > 0 ? (
-            sortedProducts.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))
-          ) : (
-            <p>No products found for the selected filters.</p>
-          )}
+        {/* Product Sort */}
+        <div className="product-sort">
+          <label className="dropdown-label">Sort by:</label>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="styled-select"
+          >
+            <option value="recommended">Recommended</option>
+            <option value="low-high">Price (Low to High)</option>
+            <option value="high-low">Price (High to Low)</option>
+            <option value="a-z">Alphabetical (A-Z)</option>
+            <option value="z-a">Alphabetical (Z-A)</option>
+          </select>
+        </div>
+
+        {/* Display Sorted Products */}
+        <div className="container mt-3">
+          <div className="product-grid">
+            {getSortedProducts().length > 0 ? (
+              getSortedProducts().map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))
+            ) : (
+              <p>No products found for the selected filters.</p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
