@@ -74,12 +74,12 @@ const Collection = () => {
   };
 
   return (
-    <>
-      {/* Filter Options */}
+    <div className="collection-container">
+      {/* Sidebar Filters */}
       <div className="filter-options">
         {/* Category Filter */}
         <div className="category-filter">
-          <p>Browse by</p>
+          <h2>Browse by</h2>
           {["Men", "Women", "Kids"].map((cat) => (
             <p key={cat}>
               <input
@@ -124,10 +124,12 @@ const Collection = () => {
       </div>
 
       {/* Title */}
+      
+      <div className="product-container">
       <div className="product-title">
         <h1>All Products</h1>
       </div>
-      <div className="product-container">
+      <div className="product-header">
         <div className="product-count">
           <p>{filteredProducts.length} products</p>
         </div>
@@ -147,6 +149,7 @@ const Collection = () => {
             <option value="z-a">Alphabetical (Z-A)</option>
           </select>
         </div>
+        </div>
 
         {/* Display Sorted Products */}
         <div className="container mt-3">
@@ -161,7 +164,7 @@ const Collection = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
