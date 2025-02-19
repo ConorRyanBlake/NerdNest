@@ -1,138 +1,70 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  FaSearch,
-  FaUserCircle,
-  FaCartArrowDown,
-  FaBars,
-} from "react-icons/fa";
+import { FaUserCircle, FaCartArrowDown } from "react-icons/fa";
 import "./Navbar.css";
 
 const NavbarMain = ({ user, onLogout, itemCount }) => {
-  const [searchVisible, setSearchVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [sidebarVisible, setSidebarVisible] = useState(false);
 
-  const toggleSidebar = () => {
-    setSidebarVisible((prev) => !prev);
-  };
-
+  // Toggle dropdown menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleSearch = () => {
-    setSearchVisible((prev) => !prev);
-  };
-
   return (
-    <header className="navbar navbar-expand-lg">
+    <header className="navbar">
       <nav className="container">
+        {/* Logo */}
         <div className="navbar-brand">
-          <Link className="nav-link" to="/">
+          <Link to="/">
             <h1>NerdNest</h1>
           </Link>
         </div>
-        <button className="navbar-toggler" type="button">
-          <FaBars onClick={toggleSidebar} />
-        </button>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <a href="/">Home</a>
-            </li>
-            <li className="nav-item">
-              <a href="/products">Products</a>
-            </li>
-          </ul>
-        </div>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <div className="nav-search">
-                {searchVisible ? (
-                  <>
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      onBlur={() => setSearchVisible(false)}
-                      className="form-control"
-                    />
-                    <button className="btn search-icon">
-                      <FaSearch />
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    className="btn btn-outline-secondary search-icon"
-                    onClick={toggleSearch}
-                  >
-                    <FaSearch />
-                  </button>
-                )}
-              </div>
-            </li>
-            <li className="nav-item cart-icon-container">
-              <Link className="nav-link" to="/cart">
-                <FaCartArrowDown />
-                {itemCount > 0 && (
-                  <span className="cart-count">{itemCount}</span>
-                )}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <div className="profile-section">
-                <FaUserCircle className="profile-icon" onClick={toggleMenu} />
-                {isMenuOpen && (
-                  <div className="menu">
-                    {user ? (
-                      <>
-                        <a href="/profile" className="menu-item">
-                          My Profile: {user.username}
-                        </a>
-                        <a href="/orders" className="menu-item">
-                          Orders
-                        </a>
-                        <button onClick={onLogout} className="menu-item">
-                          LogOut
-                        </button>
-                      </>
-                    ) : (
-                      <a href="/login" className="menu-item">
-                        Login
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
-            </li>
-          </ul>
-        </div>
-        {/* Sidebar */}
-        {sidebarVisible && (
-          <div className={`sidebar ${sidebarVisible ? "show" : ""}`}>
-            <div className="sidebar-overlay" onClick={toggleSidebar}></div>
-            <div className="sidebar-content">
-              <ul>
-                <li>
-                  <Link to="/" onClick={toggleSidebar}>
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/products" onClick={toggleSidebar}>
-                    Products
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/cart" onClick={toggleSidebar}>
-                    Cart
-                  </Link>
-                </li>
-              </ul>
+
+        {/* Navigation Links */}
+        <ul className="nav">
+          <li className="nav-item">
+            <Link to="/products">Products</Link>
+          </li>
+
+          {/* Cart Icon */}
+          <li className="nav-item cart-icon-container">
+            <Link to="/cart">
+              <FaCartArrowDown />
+              {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
+            </Link>
+          </li>
+
+          {/* Profile Section */}
+          <li className="nav-item">
+            <div className="profile-section">
+              <FaUserCircle className="profile-icon" onClick={toggleMenu} />
+
+              {/* Dropdown Menu */}
+              {isMenuOpen && (
+                <div className="menu">
+                  {user ? (
+                    <>
+                      <Link to="/profile" className="menu-item">
+                        My Profile: {user.username}
+                      </Link>
+                      <Link to="/orders" className="menu-item">
+                        Orders
+                      </Link>
+                      <button onClick={onLogout} className="menu-item">
+                        Log Out
+                      </button>
+                    </>
+                  ) : (
+                    <Link to="/login" className="menu-item">
+                      Login
+                    </Link>
+                  )}
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          </li>
+        </ul>
       </nav>
     </header>
   );
