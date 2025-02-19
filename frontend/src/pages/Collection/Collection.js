@@ -80,7 +80,7 @@ const Collection = () => {
         {/* Category Filter */}
         <div className="category-filter">
           <h2>Browse by</h2>
-          {["Men", "Women", "Kids"].map((cat) => (
+          {["Men", "Women", "Kids", "Games"].map((cat) => (
             <p key={cat}>
               <input
                 type="checkbox"
@@ -95,8 +95,9 @@ const Collection = () => {
 
         {/* Price Slider */}
         <div className="price-filter">
+          <h2>Filter by</h2>
           <p>
-            Price Range: R{priceRange[0]} - R{priceRange[1]}{" "}
+            Price: R{priceRange[0]} - R{priceRange[1]}{" "}
           </p>
           <input
             type="range"

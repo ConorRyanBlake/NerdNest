@@ -147,6 +147,7 @@ const Add = ({ token }) => {
               <option value="Men">Men</option>
               <option value="Women">Women</option>
               <option value="Kids">Kids</option>
+              <option value="Games">Games</option>
             </select>
           </div>
 

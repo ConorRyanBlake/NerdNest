@@ -5,15 +5,18 @@
   display: flex;
   gap: 30px;
   padding: 20px;
+  background-color: #121212;
 }
 
 /* Sidebar Filters */
 .filter-options {
   width: 280px;
-  background-color: #fff;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+.filter-options h2 {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #333;
 }
 
 .filter-options p{
@@ -25,14 +28,20 @@
 /* Styled checkboxes */
 .category-filter input[type="checkbox"] {
   margin-right: 10px ;
-  accent-color: #007bff;
+  accent-color: #333;
 }
 
 /* Price Range Sliders */
+.price-filter {
+  margin-top: 30px;
+}
+
+
 .price-filter input[type="range"] {
   width: 100%;
   margin-top: 5px;
 }
+
 
 /* Product styles */
 .product-container {
@@ -42,13 +51,12 @@
   gap: 20px;
   padding: 20px;
   align-items: center;
-
+  color: #fff;
 }
 .product-title h1 {
   text-align: center;
-  font-size: 36px;
+  font-size: 56px;
   font-weight: bold;
-  color: #333;
   margin-bottom: 10px;
 }
 
@@ -72,6 +80,8 @@
   align-items: center;
   gap: 10px;
   font-weight: 500;
+  position: relative;
+  display: inline-block;
 }
 
 .product-sort select {
@@ -79,6 +89,12 @@
   border: none;
   font-size: 14px ;
   cursor: pointer;
+  background-color: #121212;
+  color: #fff;
+}
+
+.product-sort select option {
+  padding: 30px;
 }
 
 /* Product Grid */
