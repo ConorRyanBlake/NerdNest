@@ -16,11 +16,19 @@
   font-size: 48px;
   font-weight: bold;
   color: #fff;
-  margin-left: 100px;
+  margin-left: 160px;
 }
 
 .navbar-brand a {
   text-decoration: none;
+}
+
+.navbar-brand img {
+  width: 50px;
+  position: absolute;
+  top: 30px;
+  left: 120px;
+  z-index: 1;
 }
 
 /*  ====== Navigation Links Style ====== */
@@ -36,6 +44,7 @@
   color: #fff;
   font-size: 20px;
   transition: color 0.3s ease-in-out;
+  font-weight: bold;
 }
 
 .nav-item a:hover {

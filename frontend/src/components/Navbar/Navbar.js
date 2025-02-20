@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserCircle, FaCartArrowDown } from "react-icons/fa";
+import NerdNest from "../../assets/nerd_nest-icon.png";
 import "./Navbar.css";
 
 const NavbarMain = ({ user, onLogout, itemCount }) => {
@@ -17,6 +18,7 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
         {/* Logo */}
         <div className="navbar-brand">
           <Link to="/">
+          <img src={NerdNest} alt="NerdNest"/>
             <h1>NerdNest</h1>
           </Link>
         </div>
