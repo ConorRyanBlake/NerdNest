@@ -108,3 +108,27 @@ exports.updateUser = async (req, res) => {
 exports.logoutUser = async (req, res) => {
     
 }
+
+// Forgot password
+exports.resetPassword = async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+        const user = await userModel.findOne({ email });
+
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
+        }
+
+        // Hash new password
+        const salt = await bycrypt.genSalt(10);
+        const hashedPassword = await bycrypt.hash(newPassword, salt);
+
+        user.password = hashedPassword;
+        await user.save();
+
+        res.json({ success: true, message: "Password reset successful" });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};

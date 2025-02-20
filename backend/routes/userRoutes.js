@@ -11,4 +11,7 @@ router.post("/login", userController.loginUser);
 //Route to admin login
 router.post("/admin", userController.adminLogin);
 
+// Route to reset password
+router.post("/reset-password", userController.resetPassword);
+
 module.exports = router
