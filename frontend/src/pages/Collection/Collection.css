@@ -6,6 +6,8 @@
   gap: 30px;
   padding: 20px;
   background-color: #121212;
+  padding-top: 50px;
+  padding-right: 150px;
 }
 
 /* Sidebar Filters */
@@ -13,6 +15,7 @@
   width: 280px;
   padding: 20px;
   color: #fff;
+  margin-left: 80px;
 }
 .filter-options h2 {
   padding-bottom: 10px;
@@ -50,11 +53,11 @@
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  align-items: center;
   color: #fff;
 }
+
 .product-title h1 {
-  text-align: center;
+  text-align: left;
   font-size: 56px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -65,7 +68,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 85%;
+  width: 100%;
 }
 
 /* Product counter */
@@ -100,7 +103,9 @@
 /* Product Grid */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
   gap: 20px;
+  width: 100%;
+  
 }
 

@@ -153,7 +153,6 @@ const Collection = () => {
         </div>
 
         {/* Display Sorted Products */}
-        <div className="container mt-3">
           <div className="product-grid">
             {getSortedProducts().length > 0 ? (
               getSortedProducts().map((product) => (
@@ -163,7 +162,6 @@ const Collection = () => {
               <p>No products found for the selected filters.</p>
             )}
           </div>
-        </div>
       </div>
     </div>
   );

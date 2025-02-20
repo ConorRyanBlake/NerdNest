@@ -13,7 +13,7 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
 
   return (
     <header className="navbar">
-      <nav className="container">
+      <nav className="navbar-container">
         {/* Logo */}
         <div className="navbar-brand">
           <Link to="/">
