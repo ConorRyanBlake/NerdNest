@@ -9,7 +9,6 @@ const BestSeller = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get("http://localhost:4000/product/list");
-      console.log("Fetched products:", response.data);
       const bestSellerProducts = response.data.products.filter(product => product.bestseller);
       setProducts(bestSellerProducts);
     } catch (error) {

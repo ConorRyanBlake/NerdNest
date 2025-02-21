@@ -115,3 +115,13 @@
   background: #333;
 }
 
+.menu button {
+  display: block;
+  padding: 10px 20px;
+  background-color: #1e1e1e;
+  border: none;
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+}
+

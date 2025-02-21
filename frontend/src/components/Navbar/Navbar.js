@@ -7,6 +7,9 @@ import "./Navbar.css";
 const NavbarMain = ({ user, onLogout, itemCount }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Testing item count
+  console.log(itemCount)
+
   // Toggle dropdown menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -34,6 +37,7 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
             <Link to="/cart">
               <FaCartArrowDown />
               {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
+              
             </Link>
           </li>
 
