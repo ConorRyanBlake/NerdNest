@@ -7,6 +7,8 @@ const CartPage = ({ setItemCount }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [error, setError] = useState("");
 
+  console.log("Cart items:", cartItems);
+
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -54,8 +56,8 @@ const CartPage = ({ setItemCount }) => {
           {cartItems.map((item) => (
             <div key={`${item.itemId._id}-${item.size}`} className="cart-item">
               <img
-                src={item.itemId.image || "https://via.placeholder.com/150"}
-                alt={item.itemId.name || "Product Image"}
+                src={item.itemId.image}
+                alt={item.itemId.name}
                 className="product-image"
               />
               <div className="cart-item-details">

@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const Product = require("../models/productModel");
 
 //Add an item to cart
 exports.addToCart = async (req, res) => {
@@ -12,11 +13,15 @@ exports.addToCart = async (req, res) => {
   }
 
   try {
-    
+    //Fetch user details
     const user = await User.findById(userId);
     if (!user) return res.json({error: "User not found"});
 
-    //Checking if item with the same itemId and size exists in the cart
+    //Fetch product details
+    const product = await Product.findById(itemId);
+    if (!product) return res.json({ success: false, message: "Product not found"})
+
+    //Checking if item with the same itemId and size exists in the cart (already in cart)
     const existingItem = user.cartData.find(
       (item) => item.itemId &&item.itemId.toString() === itemId && item.size === size
     );
@@ -26,7 +31,7 @@ exports.addToCart = async (req, res) => {
       existingItem.quantity += quantity;
     } else {
       //Add new item to cart
-      user.cartData.push({ itemId, size, quantity });
+      user.cartData.push({ itemId, name:product.name, size, quantity });
     }
 
     await user.save();

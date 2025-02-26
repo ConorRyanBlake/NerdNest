@@ -37,6 +37,7 @@ const Product = ({ user: userId }) => {
 
     const payload = {
       itemId: product._id,
+      name: product.name,
       size: selectedSize,
       quantity: 1,
     };
