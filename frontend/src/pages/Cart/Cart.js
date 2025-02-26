@@ -62,14 +62,14 @@ const CartPage = ({ setItemCount }) => {
                 <p className="product-name">{item.itemId.name || "Unknown Product"}</p>
                 <p>Size: {item.size}</p>
                 <p>Quantity: {item.quantity}</p>
-                <p>Price per item: ${item.itemId.price ? item.itemId.price.toFixed(2) : "N/A"}</p>
-                <p>Total: ${item.itemId.price ? (item.itemId.price * item.quantity).toFixed(2) : "N/A"}</p>
+                <p>Price per item: R{item.itemId.price ? item.itemId.price.toFixed(2) : "N/A"}</p>
+                <p>Total: R{item.itemId.price ? (item.itemId.price * item.quantity).toFixed(2) : "N/A"}</p>
               </div>
             </div>
           ))}
 
           <div className="cart-summary">
-            <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+            <h2>Total Price: R{totalPrice.toFixed(2)}</h2>
           </div>
         </>
       ) : (

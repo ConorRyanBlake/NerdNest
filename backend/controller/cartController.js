@@ -81,3 +81,32 @@ exports.updateCart = async (req, res) => {
     res.json({success: false, message: error.message});
   }
 }
+
+//Delete a cart item 
+exports.deleteCartItem = async (req, res) => {
+  const userId = req.body.userId;
+  const { itemId, size } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.json({ success: false, message: "User not found"})
+
+    //Filter out the item that matches itemId and size
+    const updateCart = user.cartData.filter(
+      (item) => !(item.itemId.toString() === itemId && item.size === size)
+    );
+
+    // If no change in length, item wasn't found
+    if (updateCart.length === user.cartData.length) {
+      return res.json({ success: false, message: "Item not found in cart"})
+    }
+
+    user.cartData = updateCart;
+    await user.save();
+
+    res.json({ success: true, message: "item removed from cart", cartData: user.cartData })
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message})
+  }
+};

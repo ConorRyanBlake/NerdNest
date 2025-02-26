@@ -12,4 +12,7 @@ router.get("/get", authUser, cartController.getCart);
 //Route to update cart
 router.put("/update", authUser, cartController.updateCart);
 
+//Route to delete cart
+router.post("/delete", authUser, cartController.deleteCartItem)
+
 module.exports = router;
