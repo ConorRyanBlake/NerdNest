@@ -28,6 +28,12 @@ function SignUp() {
       return;
     }
 
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      setSuccess("");
+      return;
+    }
+
     try {
       await axios.post("http://localhost:4000/user/register", {
         name,
@@ -93,7 +99,7 @@ function SignUp() {
           required
         />
         <button type="submit" className="login-btn">
-          Login
+          Sign up
         </button>
         {error && <p>{error}</p>}
           {success && <p>{success}</p>}
