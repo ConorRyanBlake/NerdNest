@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FaTrash } from 'react-icons/fa';
 import "./Cart.css";
 
 const CartPage = ({ setItemCount }) => {
@@ -8,6 +9,7 @@ const CartPage = ({ setItemCount }) => {
   const [error, setError] = useState("");
 
   console.log("Cart items:", cartItems);
+  
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -46,6 +48,28 @@ const CartPage = ({ setItemCount }) => {
     fetchCart();
   }, [setItemCount]);
 
+  const handleDelete = async (itemId, size) => {
+    try {
+      const token = localStorage.getItem('token'); //Get token from local storage
+
+      const payload = { itemId, size}
+      const response = await axios.post("http://localhost:4000/cart/delete", payload, {
+        headers: {
+          token,
+        }
+      }
+  );
+
+    if (response.data.success) {
+      setCartItems(response.data.cartData);
+    } else {
+      alert(response.data.message);
+    }
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  }
+
   return (
     <div className="cart-container">
       <h1>Your Cart</h1>
@@ -54,9 +78,10 @@ const CartPage = ({ setItemCount }) => {
       {cartItems.length > 0 ? (
         <>
           {cartItems.map((item) => (
+            
             <div key={`${item.itemId._id}-${item.size}`} className="cart-item">
               <img
-                src={item.itemId.image}
+                src={item.itemId.images?.[0]}
                 alt={item.itemId.name}
                 className="product-image"
               />
@@ -66,6 +91,9 @@ const CartPage = ({ setItemCount }) => {
                 <p>Quantity: {item.quantity}</p>
                 <p>Price per item: R{item.itemId.price ? item.itemId.price.toFixed(2) : "N/A"}</p>
                 <p>Total: R{item.itemId.price ? (item.itemId.price * item.quantity).toFixed(2) : "N/A"}</p>
+              </div>
+              <div className="delete-icon">
+                <FaTrash onClick={() => handleDelete(item.itemId._id, item.size)} />
               </div>
             </div>
           ))}
