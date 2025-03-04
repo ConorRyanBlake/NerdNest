@@ -81,6 +81,7 @@ const CartPage = ({ setItemCount }) => {
   };
 
   return (
+    <div className="cart-page-wrapper">
     <div className="cart-page">
       <h1 className="cart-title">Your Cart</h1>
       {error && <p className="error-message">{error}</p>}
@@ -166,6 +167,7 @@ const CartPage = ({ setItemCount }) => {
       ) : (
         <p>Your cart is empty.</p>
       )}
+    </div>
     </div>
   );
 };
