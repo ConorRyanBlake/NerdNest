@@ -6,6 +6,7 @@ import "./Cart.css";
 const CartPage = ({ setItemCount }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedShipping, setSelectedShipping] = useState(0);
   const [error, setError] = useState("");
 
   console.log("Cart items:", cartItems);
@@ -80,6 +81,10 @@ const CartPage = ({ setItemCount }) => {
     }
   };
 
+  const handleShippingChange = (cost) => {
+    setSelectedShipping(cost);
+  };
+
   return (
     <div className="cart-page-wrapper">
     <div className="cart-page">
@@ -146,19 +151,19 @@ const CartPage = ({ setItemCount }) => {
             <div className="shipping-options">
               <span>Shipping</span>
               <label>
-                <input type="radio" name="shipping" /> Free shipping
+                <input type="radio" name="shipping" onChange={() => handleShippingChange(0)} defaultChecked/> Free shipping
               </label>
               <label>
-                <input type="radio" name="shipping" /> Flat rate: R10.00
+                <input type="radio" name="shipping" onChange={() => handleShippingChange(50)}/> Standard: R50
               </label>
               <label>
-                <input type="radio" name="shipping" /> Pickup: R15.00
+                <input type="radio" name="shipping" onChange={() => handleShippingChange(100)}/> Express: R100
               </label>
             </div>
 
             <div className="total-line">
               <span>Total</span>
-              <span>R{totalPrice.toFixed(2)}</span>
+              <span>R{(totalPrice + selectedShipping).toFixed(2)}</span>
             </div>
 
             <button className="checkout-button">Proceed to Checkout</button>
