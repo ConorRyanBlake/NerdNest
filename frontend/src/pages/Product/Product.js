@@ -10,6 +10,10 @@ const Product = ({ user: userId }) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
 
+  console.log("Product Data:", product);
+  console.log("Category:", product?.category, "Subcategory:", product?.subCategory);
+
+
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
@@ -118,11 +122,17 @@ const Product = ({ user: userId }) => {
             Add to Cart
           </button>
         </div>
-        
       </div>
       <div className="related-products">
-          <RelatedProducts />
-        </div>
+        {product && (
+          <RelatedProducts
+          category={product.category}
+          subCategory={product.subCategory} // Use the correct casing here
+          currentProductId={product._id}
+        />
+        
+        )}
+      </div>
     </div>
   );
 };
