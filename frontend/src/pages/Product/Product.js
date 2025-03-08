@@ -96,10 +96,10 @@ const Product = ({ user: userId }) => {
           />
         </div>
         <div className="product-details">
-          <h1 className="product-name">{product.name}</h1>
+          <h1 className="product-name-title">{product.name}</h1>
+          <p className="product-price">R{product.price}</p>
           <p className="product-description">{product.description}</p>
-          <p className="product-price">Price: R{product.price}</p>
-          <p>Select Size</p>
+          <p className="select-size">Select Size</p>
           <div className="product-sizes">
             {product.sizes.map((size, index) => (
               <button
@@ -118,10 +118,11 @@ const Product = ({ user: userId }) => {
             Add to Cart
           </button>
         </div>
-        <div className="related-products">
+        
+      </div>
+      <div className="related-products">
           <RelatedProducts />
         </div>
-      </div>
     </div>
   );
 };
