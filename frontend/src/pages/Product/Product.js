@@ -127,7 +127,7 @@ const Product = ({ user: userId }) => {
         {product && (
           <RelatedProducts
           category={product.category}
-          subCategory={product.subCategory} // Use the correct casing here
+          subCategory={product.subCategory}
           currentProductId={product._id}
         />
         
