@@ -3,11 +3,8 @@ import ProductCard from "../ProductCard/ProductCard";
 import axios from "axios";
 import "./RelatedProducts.css";
 
-const RelatedProduct = ({ category, subcategory, currentProductId }) => {
+const RelatedProduct = ({ category, subCategory, currentProductId }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
-  
-  console.log("Filtered Related Products:", relatedProducts);
-
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -17,11 +14,10 @@ const RelatedProduct = ({ category, subcategory, currentProductId }) => {
           const filteredProducts = response.data.products.filter(
             (product) =>
               product.category === category &&
-              product.subcategory === subcategory &&
-              product._id !== currentProductId // Exclude the current product
+              product.subCategory === subCategory &&
+              product._id !== currentProductId
           );
-          console.log("All Products:", response.data.products);
-
+          
           setRelatedProducts(filteredProducts);
         }
       } catch (error) {
@@ -29,10 +25,10 @@ const RelatedProduct = ({ category, subcategory, currentProductId }) => {
       }
     };
 
-    if (category && subcategory) {
+    if (category && subCategory) {
       fetchProducts();
     }
-  }, [category, subcategory, currentProductId]);
+  }, [category, subCategory, currentProductId]);
 
   return (
     <div className="related-products">
