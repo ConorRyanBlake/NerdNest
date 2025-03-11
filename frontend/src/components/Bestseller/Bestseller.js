@@ -2,11 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Bestseller.css";
 import axios from "axios";
 import ProductCard from "../ProductCard/ProductCard";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 const BestSeller = () => {
   const [products, setProducts] = useState([]);
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const carouselRef = useRef(null);
-
+  
   const fetchProducts = async () => {
     try {
       const response = await axios.get("http://localhost:4000/product/list");
@@ -23,21 +27,61 @@ const BestSeller = () => {
     fetchProducts();
   }, []);
 
+  // Check scroll position
+  const checkScrollPosition = () => {
+    if (!carouselRef.current) return;
+    
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    
+    // Check if at start
+    setIsAtStart(scrollLeft <= 0);
+    
+    // Check if at end (with a small buffer for rounding errors)
+    setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    // Set initial scroll state
+    checkScrollPosition();
+    
+    // Add scroll event listener
+    const carousel = carouselRef.current;
+    if (carousel) {
+      carousel.addEventListener('scroll', checkScrollPosition);
+      
+      return () => {
+        carousel.removeEventListener('scroll', checkScrollPosition);
+      };
+    }
+  }, [products]);
+
   const scrollLeft = () => {
-    if (carouselRef.current) {
+    if (carouselRef.current && !isScrolling) {
+      setIsScrolling(true);
       carouselRef.current.scrollBy({
         left: -carouselRef.current.offsetWidth,
         behavior: "smooth",
       });
+      
+      // Reset scrolling state after animation completes
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 500); // 500ms cooldown
     }
   };
 
   const scrollRight = () => {
-    if (carouselRef.current) {
+    if (carouselRef.current && !isScrolling) {
+      setIsScrolling(true);
       carouselRef.current.scrollBy({
         left: carouselRef.current.offsetWidth,
         behavior: "smooth",
       });
+      
+      // Reset scrolling state after animation completes
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 500); // 500ms cooldown
     }
   };
 
@@ -51,25 +95,30 @@ const BestSeller = () => {
 
         <div className="carousel-wrapper">
           <button
-            className="carousel-arrow carousel-arrow-left"
+            className={`carousel-arrow carousel-arrow-left ${isScrolling ? 'scrolling' : ''}`}
             onClick={scrollLeft}
             aria-label="Scroll left"
+            disabled={isAtStart || isScrolling}
           >
-            &larr;
+            <FaArrowLeft />
           </button>
 
-          <div className="product-carousel" ref={carouselRef}>
+          <div 
+            className="product-carousel" 
+            ref={carouselRef}
+          >
             {products.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
 
           <button
-            className="carousel-arrow carousel-arrow-right"
+            className={`carousel-arrow carousel-arrow-right ${isScrolling ? 'scrolling' : ''}`}
             onClick={scrollRight}
             aria-label="Scroll right"
+            disabled={isAtEnd || isScrolling}
           >
-            &rarr;
+            <FaArrowRight />
           </button>
         </div>
       </div>

@@ -1,64 +1,72 @@
 .bestseller-section {
-    text-align: center;
-    padding: 40px 0;
-    background-color: #121212;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: auto;
-  }
+  text-align: center;
+  padding: 40px 0;
+  background-color: #121212;
+}
 
-  .bestseller-title {
-    color: white;
-    text-align: center;
-  }
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
 
-  .bestseller-text {
-    color: white;
-    text-align: center;
-  }
-  
-  .carousel-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin-top: 20px;
-  }
-  
-  .product-carousel {
-    display: flex;
-    overflow: hidden; /* Hides extra products */
-    scroll-behavior: smooth;
-    width: 80%;
-    gap: 15px;
-  }
-  
-  .product-carousel > * {
-    flex: 0 0 calc(33% - 15px); /* Show exactly 4 products */
-  }
-  
-  .carousel-arrow {
-    background-color: #000;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 24px;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background 0.3s ease;
-  }
-  
-  .carousel-arrow:hover {
-    background-color: #444;
-  }
-  
-  .carousel-arrow-left {
-    margin-right: 10px;
-  }
-  
-  .carousel-arrow-right {
-    margin-left: 10px;
-  }
-  
+.bestseller-title {
+  color: white;
+  text-align: center;
+}
+
+.bestseller-text {
+  color: white;
+  text-align: center;
+}
+
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 20px;
+}
+
+.product-carousel {
+  display: flex;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  width: 80%;
+  gap: 15px;
+}
+
+.product-carousel > * {
+  flex: 0 0 calc(33% - 15px); 
+}
+
+.carousel-arrow {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+  background-color: #444;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-arrow.scrolling {
+  pointer-events: none;
+}
+
+.carousel-arrow-left {
+  margin-right: 10px;
+}
+
+.carousel-arrow-right {
+  margin-left: 10px;
+}
