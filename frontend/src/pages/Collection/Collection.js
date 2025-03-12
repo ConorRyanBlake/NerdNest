@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 import "./Collection.css";
 
 const Collection = () => {
@@ -9,6 +10,11 @@ const Collection = () => {
   const [category, setCategory] = useState([]);
   const [sortOption, setSortOption] = useState("recommended");
   const [priceRange, setPriceRange] = useState([0, 1000]);
+
+    // Get URL parameters
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const categoryParam = queryParams.get("category");
 
   // Fetch Products from Backend
   useEffect(() => {
@@ -53,6 +59,13 @@ const Collection = () => {
 
     setFilteredProducts(updatedProducts);
   }, [category, priceRange, products]);
+
+    // Set initial category from URL parameter
+    useEffect(() => {
+      if (categoryParam && !category.includes(categoryParam)) {
+        setCategory([categoryParam]);
+      }
+    }, [categoryParam, category]);
 
   // Sort products
   const getSortedProducts = () => {

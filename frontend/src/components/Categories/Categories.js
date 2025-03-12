@@ -1,9 +1,31 @@
 import React from 'react';
 import { FaDesktop, FaKeyboard, FaHeadphones, FaGamepad, FaChair } from 'react-icons/fa';
 import { MdMonitor } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import './Categories.css';
 
 const CategoryGrid = () => {
+
+    const navigate = useNavigate();
+  
+  // Map your category titles to the category names in Collection.js
+  const categoryMapping = {
+    'Gaming PCs': 'Games',
+    'Peripherals': 'Men',
+    'Monitors': 'Women',
+    'Audio': 'Kids',
+    'Accessories': 'Games',
+    'Furniture': 'Men'
+  };
+
+  const handleCategoryClick = (categoryTitle) => {
+    // Get the corresponding category name from your mapping
+    const collectionCategory = categoryMapping[categoryTitle];
+    
+    // Navigate to collection page with category parameter
+    navigate(`/products?category=${collectionCategory}`);
+  };
+
   const categories = [
     {
       id: 1,
@@ -58,7 +80,7 @@ const CategoryGrid = () => {
       
       <div className="category-grid">
         {categories.map((category) => (
-          <div key={category.id} className="category-card">
+          <div key={category.id} className="category-card" onClick={() => handleCategoryClick(category.title)}>
             <div className="category-content">
               <div className="icon-circle">
                 <div className={`icon ${category.colorClass}`}>
