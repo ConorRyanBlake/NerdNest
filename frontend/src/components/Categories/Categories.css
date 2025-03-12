@@ -1,0 +1,96 @@
+.category-container {
+    width: 100%;
+    background-color: #121212;
+    color: white;
+    padding: 32px;
+    font-family: Arial, sans-serif;
+    /* Removed min-height: 100vh to avoid excessive bottom space */
+  }
+  
+  .category-header {
+    text-align: center;
+    margin-bottom: 36px; /* Reduced from 48px */
+  }
+  
+  .category-header h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .category-header p {
+    color: #a0a0a0;
+    font-size: 16px;
+  }
+  
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px; /* Reduced from 24px */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .category-card {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px; /* Reduced from 24px */
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .category-card:hover {
+    background-color: #252525;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .category-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .icon-circle {
+    width: 60px; /* Reduced from 64px */
+    height: 60px; /* Reduced from 64px */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px; /* Reduced from 16px */
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 70%, rgba(255,255,255,0) 100%);
+  }
+  
+  .category-content h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .category-content p {
+    color: #a0a0a0;
+    text-align: center;
+    font-size: 14px;
+    margin: 0; /* Ensure no bottom margin */
+  }
+  
+  /* Icon colors */
+  .blue-icon { color: #60a5fa; }
+  .purple-icon { color: #a78bfa; }
+  .green-icon { color: #4ade80; }
+  .red-icon { color: #f87171; }
+  .yellow-icon { color: #fbbf24; }
+  .teal-icon { color: #2dd4bf; }
+  
+  /* Media Queries for Responsiveness */
+  @media (min-width: 768px) {
+    .category-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .category-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }

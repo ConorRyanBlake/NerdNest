@@ -1,7 +1,7 @@
 .bestseller-section {
   text-align: center;
   padding: 40px 0;
-  background-color: #121212;
+  background: linear-gradient(180deg, #0f3460 10%, #16213e 30%, #121212 70%);
 }
 
 .container {
@@ -12,6 +12,7 @@
 .bestseller-title {
   color: white;
   text-align: center;
+  font-size: 40px;
 }
 
 .bestseller-text {
