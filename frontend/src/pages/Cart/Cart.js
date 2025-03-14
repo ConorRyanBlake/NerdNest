@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
 import "./Cart.css";
+import { removeItemFromCart, fetchCartCount } from "../../utils/cartUtils";
 
 const CartPage = ({ setItemCount }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -25,25 +26,23 @@ const CartPage = ({ setItemCount }) => {
         });
 
         if (response.data.success) {
-          // Filter out invalid items where itemId is null
           const validItems = response.data.cartData.filter(
             (item) => item.itemId
           );
 
           setCartItems(validItems);
-
-          // Calculate total item count and total price
-          const totalItems = validItems.reduce(
-            (acc, item) => acc + item.quantity,
-            0
-          );
+          
+          // Calculate total price
           const total = validItems.reduce(
             (acc, item) => acc + (item.itemId.price || 0) * item.quantity,
             0
           );
 
-          setItemCount(totalItems);
           setTotalPrice(total);
+          
+          // Use fetchCartCount to get the item count and update it
+          const count = await fetchCartCount(token);
+          setItemCount(count);
         } else {
           setError("Failed to fetch cart data: " + response.data.message);
         }
@@ -55,26 +54,19 @@ const CartPage = ({ setItemCount }) => {
 
     fetchCart();
   }, [setItemCount]);
-
   const handleDelete = async (itemId, size) => {
     try {
-      const token = localStorage.getItem("token"); //Get token from local storage
-
-      const payload = { itemId, size };
-      const response = await axios.post(
-        "http://localhost:4000/cart/delete",
-        payload,
-        {
-          headers: {
-            token,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        setCartItems(response.data.cartData);
+      const token = localStorage.getItem("token");
+      const result = await removeItemFromCart(itemId, size, token);
+      
+      if (result.success) {
+        setCartItems(result.data);
+        
+        // Update the itemCount
+        const count = result.data.reduce((acc, item) => acc + item.quantity, 0);
+        setItemCount(count);
       } else {
-        alert(response.data.message);
+        alert(result.message);
       }
     } catch (error) {
       console.error("Error deleting item:", error);

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Product.css";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
+import { addItemToCart } from "../../utils/cartUtils";
 
 const Product = ({ user: userId }) => {
   const { productId } = useParams();
@@ -37,8 +38,6 @@ const Product = ({ user: userId }) => {
       return;
     }
 
-    console.log("User ID:", userId); // Check if userId is correct
-
     const payload = {
       itemId: product._id,
       name: product.name,
@@ -46,29 +45,13 @@ const Product = ({ user: userId }) => {
       quantity: 1,
     };
 
-    console.log("Payload", payload); // Debugging line
-
-    try {
-      const token = localStorage.getItem("token"); // Ensure token is stored
-      console.log("Token:", token);
-
-      const response = await axios.post(
-        "http://localhost:4000/cart/add",
-        payload,
-        {
-          headers: {
-            token,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        alert("Item added to cart!");
-      } else {
-        alert("Failed to add item to cart");
-      }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
+    const token = localStorage.getItem("token");
+    const result = await addItemToCart(payload, token);
+    
+    if (result.success) {
+      alert(result.message);
+    } else {
+      alert(result.message);
     }
   };
 
