@@ -73,6 +73,9 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
 
         {/* Navigation Links */}
         <ul className={`nav ${isMobileMenuOpen ? "active" : ""}`}>
+        <li className="nav-item">
+            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+          </li>
           <li className="nav-item">
             <Link to="/products" onClick={() => setIsMobileMenuOpen(false)}>Products</Link>
           </li>

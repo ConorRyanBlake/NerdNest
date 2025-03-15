@@ -8,7 +8,7 @@ import SignUp from './pages/SignUp/SignUp';
 import Collection from './pages/Collection/Collection';
 import Product from './pages/Product/Product';
 import Cart from './pages/Cart/Cart';
-import About from './pages/About';
+import About from './pages/About/About';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { fetchCartCount } from './utils/cartUtils';

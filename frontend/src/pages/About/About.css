@@ -1,0 +1,112 @@
+/* Enhanced dark theme styling for About page */
+.about-container {
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  background-color: #121212;
+  color: #f3f4f6;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.about-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.about-tagline {
+  font-size: 1.25rem;
+  color: #d1d5db;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.about-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  margin: 0 auto 3rem;
+}
+
+.about-section {
+  margin-bottom: 4rem;
+}
+
+.about-subheading {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.about-subheading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+}
+
+.about-text {
+  font-size: 1.125rem;
+  color: #d1d5db;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.about-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.about-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.about-card-text {
+  font-size: 1rem;
+  color: #d1d5db;
+  line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-container {
+    padding: 3rem 1.5rem;
+  }
+  
+  .about-heading {
+    font-size: 2.5rem;
+  }
+}
