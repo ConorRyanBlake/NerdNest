@@ -98,9 +98,6 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
                 <div className="menu">
                   {user ? (
                     <>
-                      <Link to="/profile" className="menu-item" onClick={() => {setIsMenuOpen(false); setIsMobileMenuOpen(false);}}>
-                        My Profile: {user.username}
-                      </Link>
                       <Link to="/orders" className="menu-item" onClick={() => {setIsMenuOpen(false); setIsMobileMenuOpen(false);}}>
                         Orders
                       </Link>

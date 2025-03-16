@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -10,11 +10,20 @@ const Collection = () => {
   const [category, setCategory] = useState([]);
   const [sortOption, setSortOption] = useState("recommended");
   const [priceRange, setPriceRange] = useState([0, 1000]);
+  
+  // Default price range values
+  const DEFAULT_MIN_PRICE = 0;
+  const DEFAULT_MAX_PRICE = 1000;
+  
+  // Refs for slider elements
+  const sliderTrackRef = useRef(null);
+  const minRangeRef = useRef(null);
+  const maxRangeRef = useRef(null);
 
-    // Get URL parameters
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const categoryParam = queryParams.get("category");
+  // Get URL parameters
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryParam = queryParams.get("category");
 
   // Fetch Products from Backend
   useEffect(() => {
@@ -42,6 +51,38 @@ const Collection = () => {
     );
   };
 
+  // Reset price range to default
+  const resetPriceRange = () => {
+    setPriceRange([DEFAULT_MIN_PRICE, DEFAULT_MAX_PRICE]);
+  };
+
+  // Update slider track width and position
+  useEffect(() => {
+    if (sliderTrackRef.current && minRangeRef.current && maxRangeRef.current) {
+      const minPercent = (priceRange[0] / DEFAULT_MAX_PRICE) * 100;
+      const maxPercent = (priceRange[1] / DEFAULT_MAX_PRICE) * 100;
+      
+      sliderTrackRef.current.style.left = `${minPercent}%`;
+      sliderTrackRef.current.style.width = `${maxPercent - minPercent}%`;
+    }
+  }, [priceRange]);
+
+  // Handle min price change
+  const handleMinPriceChange = (e) => {
+    const newMinVal = parseInt(e.target.value);
+    if (newMinVal < priceRange[1]) {
+      setPriceRange([newMinVal, priceRange[1]]);
+    }
+  };
+
+  // Handle max price change
+  const handleMaxPriceChange = (e) => {
+    const newMaxVal = parseInt(e.target.value);
+    if (newMaxVal > priceRange[0]) {
+      setPriceRange([priceRange[0], newMaxVal]);
+    }
+  };
+
   // Filter Products based on Category and Price Range
   useEffect(() => {
     let updatedProducts = [...products];
@@ -60,12 +101,12 @@ const Collection = () => {
     setFilteredProducts(updatedProducts);
   }, [category, priceRange, products]);
 
-    // Set initial category from URL parameter
-    useEffect(() => {
-      if (categoryParam && !category.includes(categoryParam)) {
-        setCategory([categoryParam]);
-      }
-    }, [categoryParam, category]);
+  // Set initial category from URL parameter
+  useEffect(() => {
+    if (categoryParam && !category.includes(categoryParam)) {
+      setCategory([categoryParam]);
+    }
+  }, [categoryParam, category]);
 
   // Sort products
   const getSortedProducts = () => {
@@ -79,7 +120,6 @@ const Collection = () => {
           return a.name.localeCompare(b.name);
         case "z-a":
           return b.name.localeCompare(a.name);
-
         default:
           return 0; // No sorting applied (recommended)
       }
@@ -106,75 +146,93 @@ const Collection = () => {
           ))}
         </div>
 
-        {/* Price Slider */}
+        {/* Price Slider - Updated UI */}
         <div className="price-filter">
           <h2>Filter by</h2>
-          <p>
-            Price: R{priceRange[0]} - R{priceRange[1]}{" "}
-          </p>
-          <input
-            type="range"
-            className="min-range"
-            min="0"
-            max="1000"
-            step="10"
-            value={priceRange[0]}
-            onChange={(e) =>
-              setPriceRange([Number(e.target.value), priceRange[1]])
-            }
-          />
-          <input
-            type="range"
-            className="max-range"
-            min="0"
-            max="1000"
-            step="10"
-            value={priceRange[1]}
-            onChange={(e) =>
-              setPriceRange([priceRange[0], Number(e.target.value)])
-            }
-          />
+          
+          <div className="price-range-header">
+            <span>Price</span>
+            <button 
+              className="price-reset-btn" 
+              onClick={resetPriceRange}
+            >
+              Reset
+            </button>
+          </div>
+          
+          <div className="price-range-slider">
+            <div className="slider-track" ref={sliderTrackRef}></div>
+          </div>
+          
+          <div className="price-range-input">
+            <div className="range-input">
+              <input
+                type="range"
+                className="min-range"
+                min={DEFAULT_MIN_PRICE}
+                max={DEFAULT_MAX_PRICE}
+                step="1"
+                value={priceRange[0]}
+                onChange={handleMinPriceChange}
+                ref={minRangeRef}
+              />
+              <input
+                type="range"
+                className="max-range"
+                min={DEFAULT_MIN_PRICE}
+                max={DEFAULT_MAX_PRICE}
+                step="1"
+                value={priceRange[1]}
+                onChange={handleMaxPriceChange}
+                ref={maxRangeRef}
+              />
+            </div>
+          </div>
+          
+          <div className="price-range-values">
+            <span>R{priceRange[0]}</span>
+            <span>R{priceRange[1]}</span>
+          </div>
         </div>
       </div>
 
       {/* Title */}
-      
       <div className="product-container">
-      <div className="product-title">
-        <h1>All Products</h1>
-      </div>
-      <div className="product-header">
-        <div className="product-count">
-          <p>{filteredProducts.length} products</p>
+        <div className="product-title">
+          <h1>All Products</h1>
         </div>
+        <div className="product-header">
+          <div className="product-count">
+            <p>{filteredProducts.length} products</p>
+          </div>
 
-        {/* Product Sort */}
-        <div className="product-sort">
-          <label className="dropdown-label">Sort by:</label>
-          <select
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-            className="styled-select"
-          >
-            <option value="recommended">Recommended</option>
-            <option value="low-high">Price (Low to High)</option>
-            <option value="high-low">Price (High to Low)</option>
-            <option value="a-z">Alphabetical (A-Z)</option>
-            <option value="z-a">Alphabetical (Z-A)</option>
-          </select>
-        </div>
+          {/* Product Sort */}
+          <div className="product-sort">
+            <label className="dropdown-label">Sort by:</label>
+            <select
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="styled-select"
+            >
+              <option value="recommended">Recommended</option>
+              <option value="low-high">Price (Low to High)</option>
+              <option value="high-low">Price (High to Low)</option>
+              <option value="a-z">Alphabetical (A-Z)</option>
+              <option value="z-a">Alphabetical (Z-A)</option>
+            </select>
+          </div>
         </div>
 
         {/* Display Sorted Products */}
-          <div className="product-grid">
-            {getSortedProducts().length > 0 ? (
-              getSortedProducts().map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))
-            ) : (
-              <p>No products found for the selected filters.</p>
-            )}
-          </div>
+        <div className="product-grid">
+          {getSortedProducts().length > 0 ? (
+            getSortedProducts().map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          ) : (
+            <p>No products found for the selected filters.</p>
+          )}
+        </div>
       </div>
     </div>
   );

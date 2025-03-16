@@ -1,23 +1,57 @@
-.card {
+.product-card {
   width: 100%;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: #121212;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
+  position: relative;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+.product-card a {
+  text-decoration: none;
 }
 
-.card-img {
+.product-card-img-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.product-card-img {
   width: 100%;
   height: auto;
   object-fit: cover;
+  transition: all 0.2s ease-in-out;
+  display: block;
 }
 
-.card-title {
+.product-card-img:hover {
+  transform: scale(1.1);
+}
+
+.product-card-body {
+  z-index: 1000;
+  padding: 12px;
+  position: relative;
+  color: white;
+}
+
+.product-card-title {
   margin-bottom: 10px;
+}
+
+.product-card-price {
+  margin-bottom: 12px;
+}
+
+.quick-add-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.quick-add-btn:hover {
+  background-color: #444;
 }
