@@ -60,7 +60,7 @@ const Add = ({ token }) => {
 
   return (
     <div className="add-form">
-      <div onSubmit={onSubmitHandler}>
+      <form onSubmit={onSubmitHandler}>
         <div className="add-form-image-section">
           <p className="add-form-title">Upload Image</p>
 
@@ -204,7 +204,7 @@ const Add = ({ token }) => {
         </div>
 
         <button className="add-form-button" type="submit">ADD</button>
-      </div>
+      </form>
     </div>
   );
 };
