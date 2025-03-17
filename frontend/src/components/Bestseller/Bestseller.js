@@ -81,7 +81,7 @@ const BestSeller = () => {
       // Reset scrolling state after animation completes
       setTimeout(() => {
         setIsScrolling(false);
-      }, 500); // 500ms cooldown
+      }, 500); // 500ms cool down
     }
   };
 

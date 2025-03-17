@@ -98,9 +98,15 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
                 <div className="menu">
                   {user ? (
                     <>
-                      <Link to="/orders" className="menu-item" onClick={() => {setIsMenuOpen(false); setIsMobileMenuOpen(false);}}>
+                      <button 
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          setIsMobileMenuOpen(false);
+                        }} 
+                        className="menu-item"
+                      >
                         Orders
-                      </Link>
+                      </button>
                       <button 
                         onClick={() => {
                           onLogout();

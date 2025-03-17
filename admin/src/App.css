@@ -1,5 +1,8 @@
+.App {
+    font-family: Arial, Helvetica, sans-serif;
+}
 .main-content {
-    margin-left: 250px;
-    margin-top: 75px;
+    margin-left: 210px;
+    margin-top: 90px;
     padding-left: 20px;
 }

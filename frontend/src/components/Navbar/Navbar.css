@@ -102,27 +102,21 @@
 }
 
 .menu-item {
+  width: 100%;
   display: block;
   padding: 10px 20px;
   color: #fff;
+  background-color: #1e1e1e;
+  border: none;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bold;
   transition: background-color 0.3s ease-in-out;
   cursor: pointer;
 }
 
 .menu-item:hover {
   background: #333;
-}
-
-.menu button {
-  display: block;
-  padding: 10px 20px;
-  background-color: #1e1e1e;
-  border: none;
-  color: red;
-  font-size: 14px;
-  font-weight: bold;
 }
 
 /* Mobile menu toggle button - hidden by default */
@@ -234,6 +228,11 @@
   /* Adjust cart icon container in mobile view */
   .cart-icon-container {
     margin: 10px 0;
+  }
+
+  .cart-count {
+    top: 5px;
+    right: 120px;
   }
 }
 
