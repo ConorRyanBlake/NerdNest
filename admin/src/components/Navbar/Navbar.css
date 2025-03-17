@@ -17,14 +17,14 @@
     font-size: 36px;
     font-weight: bold;
     color: #fff;
-    margin-left: 160px;
+    margin-left: 90px;
 }
 
 .navbar img {
     width: 50px;
     position: absolute;
-    top: 30px;
-    left: 120px;
+    top: 25px;
+    left: 60px;
     z-index: 1;  
 }
 
