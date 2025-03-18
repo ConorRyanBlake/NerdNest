@@ -10,12 +10,12 @@ const CategoryGrid = () => {
   
   // Map your category titles to the category names in Collection.js
   const categoryMapping = {
-    'Gaming PCs': 'Games',
-    'Peripherals': 'Men',
-    'Monitors': 'Women',
-    'Audio': 'Kids',
-    'Accessories': 'Games',
-    'Furniture': 'Men'
+    'Gaming PCs': 'GamingPCs',
+    'Peripherals': 'Peripherals',
+    'Monitors': 'Monitors',
+    'Audio': 'Audio',
+    'Accessories': 'Accessories',
+    'Furniture': 'Furniture'
   };
 
   const handleCategoryClick = (categoryTitle) => {

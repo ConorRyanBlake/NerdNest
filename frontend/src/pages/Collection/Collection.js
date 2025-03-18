@@ -9,11 +9,11 @@ const Collection = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [sortOption, setSortOption] = useState("recommended");
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([0, 10000]);
   
   // Default price range values
   const DEFAULT_MIN_PRICE = 0;
-  const DEFAULT_MAX_PRICE = 1000;
+  const DEFAULT_MAX_PRICE = 10000;
   
   // Refs for slider elements
   const sliderTrackRef = useRef(null);
@@ -133,7 +133,7 @@ const Collection = () => {
         {/* Category Filter */}
         <div className="category-filter">
           <h2>Browse by</h2>
-          {["Men", "Women", "Kids", "Games"].map((cat) => (
+          {["Peripherals", "GamingPCs", "Monitors", "Audio", "Accessories", "Furniture"].map((cat) => (
             <p key={cat}>
               <input
                 type="checkbox"

@@ -7,11 +7,10 @@ const Add = ({ token }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    category: "Men",
-    subCategory: "Shirt",
+    category: "Peripherals",
+    subCategory: "Keyboards",
     price: "",
     bestseller: false,
-    sizes: [],
     images: [null, null, null, null],
   });
 
@@ -22,10 +21,12 @@ const Add = ({ token }) => {
   // Categories and subcategories mapping wrapped in useMemo
   const categoryOptions = useMemo(
     () => ({
-      Men: ["Shirt", "Pants", "Hoodie", "Jacket", "Shoes", "Accessories"],
-      Women: ["Shirt", "Pants", "Dress", "Skirt", "Shoes", "Accessories"],
-      Kids: ["Shirt", "Pants", "Onesie", "Shoes", "Toys"],
-      Games: ["Board Games", "Video Games", "Card Games", "Outdoor Games"],
+      Peripherals: ["Keyboards", "Mice", "Mouse Pads", "Controllers", "VR Accessories"],
+      GamingPCs: ["Prebuilt PCs", "Custom Build PCs", "Gaming Laptops", "Mini Gaming PCs", "Streaming PCs"],
+      Monitors: ["1080p", "1440p", "4K", "Ultrawide", "Curved", "High Refresh Rate"],
+      Audio: ["Gaming Headsets", "Studio Headphones", "Gaming Speakers", "DAC & Audio Interfaces", "Microphones"],
+      Accessories: ["Streaming Decks", "Cable Management", "RGB Lighting Kits", "Cooling Pads & Stands"],
+      Furniture: ["Gaming Chairs", "Gaming Desks", "Monitor Stands", "Footrests", "Headphone Stands & Holders"],
     }),
     []
   );
@@ -54,15 +55,6 @@ const Add = ({ token }) => {
     setFormData((prev) => ({ ...prev, images: newImages }));
   };
 
-  const toggleSize = (size) => {
-    setFormData((prev) => ({
-      ...prev,
-      sizes: prev.sizes.includes(size)
-        ? prev.sizes.filter((s) => s !== size)
-        : [...prev.sizes, size],
-    }));
-  };
-
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) 
@@ -71,9 +63,8 @@ const Add = ({ token }) => {
       newErrors.description = "Description is required";
     if (!formData.price || formData.price <= 0)
       newErrors.price = "Valid price is required";
-    if (formData.sizes.length === 0)
-      newErrors.sizes = "At least one size must be selected";
-    if (!formData.images[0]) newErrors.images = "Primary image is required";
+    if (!formData.images[0]) 
+      newErrors.images = "Primary image is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -95,7 +86,6 @@ const Add = ({ token }) => {
       submitData.append("subCategory", formData.subCategory);
       submitData.append("price", formData.price);
       submitData.append("bestseller", formData.bestseller);
-      submitData.append("sizes", JSON.stringify(formData.sizes));
 
       // Append images with their original names
       formData.images.forEach((image, index) => {
@@ -116,11 +106,10 @@ const Add = ({ token }) => {
         setFormData({
           name: "",
           description: "",
-          category: "Men",
-          subCategory: "Shirt",
+          category: "Peripherals",
+          subCategory: "Keyboards",
           price: "",
           bestseller: false,
-          sizes: [],
           images: [null, null, null, null],
         });
 
@@ -280,7 +269,7 @@ const Add = ({ token }) => {
 
             <div className="add-form-field">
               <label htmlFor="price" className="add-form-label">
-                Price ($)
+                Price (R)
               </label>
               <input
                 id="price"
@@ -300,24 +289,6 @@ const Add = ({ token }) => {
 
         <div className="add-form-section">
           <h2 className="add-form-section-title">Product Options</h2>
-
-          <div className="add-form-field">
-            <label className="add-form-label">Available Sizes</label>
-            <div className="add-form-sizes">
-              {["XS", "S", "M", "L", "XL", "XXL"].map((size) => (
-                <div
-                  key={size}
-                  className={`add-form-size ${
-                    formData.sizes.includes(size) ? "selected" : ""
-                  }`}
-                  onClick={() => toggleSize(size)}
-                >
-                  <p>{size}</p>
-                </div>
-              ))}
-            </div>
-            {errors.sizes && <p className="add-form-error">{errors.sizes}</p>}
-          </div>
 
           <div className="add-form-field">
             <div className="add-form-checkbox">

@@ -52,7 +52,6 @@ const List = ({ token }) => {
             <b>Image</b>
             <b>Name</b>
             <b>Category</b>
-            <b>Sizes</b>
             <b>Price</b>
             <b>Action</b>
           </div>
@@ -64,15 +63,6 @@ const List = ({ token }) => {
               <img src={product.images[0]} alt={product.name} />
               <p>{product.name}</p>
               <p>{product.category}</p>
-              <div className="product-sizes">
-                <ul className="size-list">
-                  {product.sizes.map((size, index) => (
-                    <li key={index}>
-                      {size}
-                    </li>
-                  ))}
-                </ul>
-              </div>
               <p>R{product.price}</p>
               <button onClick={() => removeProduct(product._id)}>Delete</button>
             </div>

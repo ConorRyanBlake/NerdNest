@@ -1,6 +1,7 @@
 .product-card {
   width: 100%;
   background-color: #121212;
+  border: #333 solid 1px;
   border-radius: 8px;
   overflow: hidden;
   position: relative;

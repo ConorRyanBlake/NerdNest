@@ -9,7 +9,6 @@ const Product = ({ user: userId }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
 
   console.log("Product Data:", product);
   console.log("Category:", product?.category, "Subcategory:", product?.subCategory);
@@ -33,15 +32,9 @@ const Product = ({ user: userId }) => {
   }, [productId]);
 
   const addToCart = async () => {
-    if (!selectedSize) {
-      alert("Please select a size");
-      return;
-    }
-
     const payload = {
       itemId: product._id,
       name: product.name,
-      size: selectedSize,
       quantity: 1,
     };
 
@@ -86,21 +79,6 @@ const Product = ({ user: userId }) => {
           <h1 className="product-name-title">{product.name}</h1>
           <p className="product-price">R{product.price}</p>
           <p className="product-description">{product.description}</p>
-          <p className="select-size">Select Size</p>
-          <div className="product-sizes">
-            {product.sizes.map((size, index) => (
-              <button
-                key={index}
-                className={`size-button ${
-                  selectedSize === size ? "selected" : ""
-                }`}
-                onClick={() => setSelectedSize(size)}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-
           <button className="add-to-cart" onClick={addToCart}>
             Add to Cart
           </button>
