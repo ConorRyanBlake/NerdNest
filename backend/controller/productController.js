@@ -10,7 +10,6 @@ exports.addProduct = async (req, res) => {
       price,
       category,
       subCategory,
-      sizes,
       bestseller,
     } = req.body;
 
@@ -41,7 +40,6 @@ exports.addProduct = async (req, res) => {
       price: Number(price),
       subCategory,
       bestseller: bestseller === "true" ? true : false,
-      sizes: JSON.parse(sizes),
       images: imagesUrl,
       date: Date.now(),
     };

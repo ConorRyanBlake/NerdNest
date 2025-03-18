@@ -5,11 +5,11 @@ const Product = require("../models/productModel");
 exports.addToCart = async (req, res) => {
   console.log(req.body); // Add this to see incoming data
   const userId = req.body.userId;
-  const { itemId, size, quantity } = req.body;
+  const { itemId,quantity } = req.body;
 
   // Validate required fields
-  if (!itemId || !size || typeof quantity !== 'number') {
-    return res.json({ success: false, message: "itemId, size, and quantity are required and must be valid" });
+  if (!itemId || typeof quantity !== 'number') {
+    return res.json({ success: false, message: "itemId and quantity are required and must be valid" });
   }
 
   try {
@@ -21,9 +21,9 @@ exports.addToCart = async (req, res) => {
     const product = await Product.findById(itemId);
     if (!product) return res.json({ success: false, message: "Product not found"})
 
-    //Checking if item with the same itemId and size exists in the cart (already in cart)
+    //Checking if item with the same itemId exists in the cart (already in cart)
     const existingItem = user.cartData.find(
-      (item) => item.itemId &&item.itemId.toString() === itemId && item.size === size
+      (item) => item.itemId &&item.itemId.toString() === itemId
     );
 
     if (existingItem) {
@@ -31,7 +31,7 @@ exports.addToCart = async (req, res) => {
       existingItem.quantity += quantity;
     } else {
       //Add new item to cart
-      user.cartData.push({ itemId, name:product.name, size, quantity });
+      user.cartData.push({ itemId, name:product.name, quantity });
     }
 
     await user.save();
@@ -63,21 +63,20 @@ exports.getCart = async (req, res) => {
 //Update cart items
 exports.updateCart = async (req, res) => {
   const userId = req.body.userId;
-  const {itemId, size, quantity} = req.body;
+  const {itemId, quantity} = req.body;
 
   try {
     const user = await User.findById(userId);
     if (!user) return res.json({success: false, message: "User not found"});
 
     const itemToUpdate = user.cartData.find(
-      (item) => item.itemId.toString() === itemId && item.size === size 
+      (item) => item.itemId.toString() === itemId
     );
 
     if (!itemToUpdate) return res.json({success: false, message: "Item not found in cart"});
 
-    //Update quantity or size
+    //Update quantity
     if (quantity !== undefined) itemToUpdate.quantity = quantity;
-    if (size) itemToUpdate.size = size;
 
     await user.save();
     res.json({success: true, message: "Item updated successfully", cartData: user.cartData}); 
@@ -90,7 +89,7 @@ exports.updateCart = async (req, res) => {
 //Delete a cart item 
 exports.deleteCartItem = async (req, res) => {
   const userId = req.body.userId;
-  const { itemId, size } = req.body;
+  const { itemId } = req.body;
 
   try {
     const user = await User.findById(userId);
@@ -98,7 +97,7 @@ exports.deleteCartItem = async (req, res) => {
 
     //Filter out the item that matches itemId and size
     const updateCart = user.cartData.filter(
-      (item) => !(item.itemId.toString() === itemId && item.size === size)
+      (item) => !(item.itemId.toString() === itemId)
     );
 
     // If no change in length, item wasn't found
