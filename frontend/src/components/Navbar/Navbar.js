@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUserCircle, FaCartArrowDown, FaBars, FaTimes } from "react-icons/fa";
 import NerdNest from "../../assets/nerd_nest-icon.png";
 import "./Navbar.css";
@@ -9,6 +9,7 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navRef = useRef(null);
   const menuRef = useRef(null);
+  const navigate = useNavigate();
 
   // Toggle profile dropdown menu
   const toggleMenu = () => {
@@ -112,6 +113,7 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
                           onLogout();
                           setIsMenuOpen(false);
                           setIsMobileMenuOpen(false);
+                          navigate("/login")
                         }} 
                         className="menu-item"
                       >

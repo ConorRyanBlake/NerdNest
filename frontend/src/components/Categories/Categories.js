@@ -72,7 +72,7 @@ const CategoryGrid = () => {
   ];
 
   return (
-    <div className="category-container">
+    <div id='categories' className="category-container">
       <div className="category-header">
         <h1>Shop by Category</h1>
         <p>Browse our extensive collection of gaming gear</p>

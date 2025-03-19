@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import saleImage from '../../assets/sale.webp'
 import './Sale.css';
 
 const SaleBanner = () => {
@@ -32,7 +33,7 @@ const SaleBanner = () => {
         <div className="sale-image">
           <div className="image-placeholder">
             <div className="placeholder-icon">
-              <img src="hero_img.jpg" alt="Placeholder" />
+              <img src={saleImage} alt="Placeholder" />
             </div>
           </div>
           <div className="discount-badge">40% OFF</div>
