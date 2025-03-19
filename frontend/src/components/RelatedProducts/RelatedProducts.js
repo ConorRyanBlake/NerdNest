@@ -3,7 +3,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import axios from "axios";
 import "./RelatedProducts.css";
 
-const RelatedProducts = ({ category, subCategory, currentProductId }) => {
+const RelatedProducts = ({ category, currentProductId }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,7 +17,6 @@ const RelatedProducts = ({ category, subCategory, currentProductId }) => {
           const filteredProducts = response.data.products.filter(
             (product) =>
               product.category === category &&
-              product.subCategory === subCategory &&
               product._id !== currentProductId
           );
           
@@ -32,12 +31,12 @@ const RelatedProducts = ({ category, subCategory, currentProductId }) => {
       }
     };
 
-    if (category && subCategory) {
+    if (category) {
       fetchProducts();
     } else {
       setLoading(false);
     }
-  }, [category, subCategory, currentProductId]);
+  }, [category, currentProductId]);
 
   // Don't render anything if no related products and not loading
   if (!loading && relatedProducts.length === 0) {

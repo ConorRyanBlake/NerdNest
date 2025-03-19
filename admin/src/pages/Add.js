@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import axios from "axios";
 import { backendURL } from "../App";
 import "./Add.css";
@@ -7,8 +7,7 @@ const Add = ({ token }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    category: "Peripherals",
-    subCategory: "Keyboards",
+    category: "Keyboards",
     price: "",
     bestseller: false,
     images: [null, null, null, null],
@@ -19,27 +18,17 @@ const Add = ({ token }) => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   // Categories and subcategories mapping wrapped in useMemo
-  const categoryOptions = useMemo(
-    () => ({
-      Peripherals: ["Keyboards", "Mice", "Mouse Pads", "Controllers", "VR Accessories"],
-      GamingPCs: ["Prebuilt PCs", "Custom Build PCs", "Gaming Laptops", "Mini Gaming PCs", "Streaming PCs"],
-      Monitors: ["1080p", "1440p", "4K", "Ultrawide", "Curved", "High Refresh Rate"],
-      Audio: ["Gaming Headsets", "Studio Headphones", "Gaming Speakers", "DAC & Audio Interfaces", "Microphones"],
-      Accessories: ["Streaming Decks", "Cable Management", "RGB Lighting Kits", "Cooling Pads & Stands"],
-      Furniture: ["Gaming Chairs", "Gaming Desks", "Monitor Stands", "Footrests", "Headphone Stands & Holders"],
-    }),
+  const categories = useMemo(
+    () => [
+      "Keyboards",
+      "Mice",
+      "Accessories",
+      "Furniture",
+      "Audio",
+      "Furniture"
+    ],
     []
   );
-
-  // Update subcategories when category changes
-  useEffect(() => {
-    if (categoryOptions[formData.category]) {
-      setFormData((prev) => ({
-        ...prev,
-        subCategory: categoryOptions[formData.category][0],
-      }));
-    }
-  }, [formData.category, categoryOptions]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -83,7 +72,6 @@ const Add = ({ token }) => {
       submitData.append("name", formData.name);
       submitData.append("description", formData.description);
       submitData.append("category", formData.category);
-      submitData.append("subCategory", formData.subCategory);
       submitData.append("price", formData.price);
       submitData.append("bestseller", formData.bestseller);
 
@@ -107,7 +95,6 @@ const Add = ({ token }) => {
           name: "",
           description: "",
           category: "Peripherals",
-          subCategory: "Keyboards",
           price: "",
           bestseller: false,
           images: [null, null, null, null],
@@ -240,28 +227,9 @@ const Add = ({ token }) => {
                 onChange={handleInputChange}
                 value={formData.category}
               >
-                {Object.keys(categoryOptions).map((category) => (
+                {categories.map((category) => (
                   <option key={category} value={category}>
                     {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="add-form-field">
-              <label htmlFor="subCategory" className="add-form-label">
-                Sub-Category
-              </label>
-              <select
-                id="subCategory"
-                name="subCategory"
-                className="add-form-select"
-                onChange={handleInputChange}
-                value={formData.subCategory}
-              >
-                {categoryOptions[formData.category]?.map((subCat) => (
-                  <option key={subCat} value={subCat}>
-                    {subCat}
                   </option>
                 ))}
               </select>

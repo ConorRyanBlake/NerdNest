@@ -1,52 +1,41 @@
 import React from 'react';
 import { FaDesktop, FaKeyboard, FaHeadphones, FaGamepad, FaChair } from 'react-icons/fa';
-import { MdMonitor } from 'react-icons/md';
+import { MdMouse } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import './Categories.css';
 
 const CategoryGrid = () => {
 
     const navigate = useNavigate();
-  
-  // Map your category titles to the category names in Collection.js
-  const categoryMapping = {
-    'Gaming PCs': 'GamingPCs',
-    'Peripherals': 'Peripherals',
-    'Monitors': 'Monitors',
-    'Audio': 'Audio',
-    'Accessories': 'Accessories',
-    'Furniture': 'Furniture'
-  };
 
   const handleCategoryClick = (categoryTitle) => {
-    // Get the corresponding category name from your mapping
-    const collectionCategory = categoryMapping[categoryTitle];
     
     // Navigate to collection page with category parameter
-    navigate(`/products?category=${collectionCategory}`);
+    navigate(`/products?category=${categoryTitle}`);
   };
 
   const categories = [
+    
     {
       id: 1,
-      title: 'Gaming PCs',
-      description: 'Custom built gaming rigs',
-      icon: <FaDesktop size={32} />,
-      colorClass: 'blue-icon'
-    },
-    {
-      id: 2,
-      title: 'Peripherals',
-      description: 'Keyboards, mice & more',
+      title: 'Keyboards',
+      description: 'Keyboards',
       icon: <FaKeyboard size={32} />,
       colorClass: 'purple-icon'
     },
     {
-      id: 3,
-      title: 'Monitors',
-      description: 'Ultra-wide & high refresh',
-      icon: <MdMonitor size={36} />,
+      id: 2,
+      title: 'Mice',
+      description: 'Mice',
+      icon: <MdMouse size={36} />,
       colorClass: 'green-icon'
+    },
+    {
+      id: 3,
+      title: 'Consoles',
+      description: 'gaming consoles',
+      icon: <FaDesktop size={32} />,
+      colorClass: 'blue-icon'
     },
     {
       id: 4,
