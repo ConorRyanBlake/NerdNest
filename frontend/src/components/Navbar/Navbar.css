@@ -51,6 +51,16 @@
   color: grey;
 }
 
+.underline {
+  content: "";
+  position: relative;
+  width: 60px;
+  height: 2px;
+  background: #00D4FF;
+  bottom: -5px;
+  left: 0;
+}
+
 /*  ====== Cart Icon Style ====== */
 .cart-icon-container {
   position: relative;

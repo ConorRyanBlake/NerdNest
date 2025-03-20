@@ -40,8 +40,8 @@ const Footer = () => {
         <div className="footer-section">
           <p className="footer-title">Get In Touch</p>
           <ul>
-            <li><MdEmail /> <a href="mailto:4LWjv@example.com">4LWjv@example.com</a></li>
-            <li><MdPhone /> <a href="tel:0123456789">0123456789</a></li>
+            <li><MdEmail /> <a href="/">nerdnest@example.com</a></li>
+            <li><MdPhone /> <a href="/">0123456789</a></li>
           </ul>
         </div>
       </div>

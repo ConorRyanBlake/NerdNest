@@ -30,7 +30,7 @@
 .about-divider {
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  background-color: #00D4FF;
   margin: 0 auto 3rem;
 }
 
@@ -45,16 +45,6 @@
   margin-bottom: 1.25rem;
   position: relative;
   padding-bottom: 0.75rem;
-}
-
-.about-subheading::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
 }
 
 .about-text {

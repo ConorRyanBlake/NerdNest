@@ -76,6 +76,7 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
         <ul className={`nav ${isMobileMenuOpen ? "active" : ""}`}>
         <li className="nav-item">
             <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+            <div className="underline"></div>
           </li>
           <li className="nav-item">
             <Link to="/products" onClick={() => setIsMobileMenuOpen(false)}>Products</Link>
@@ -99,15 +100,6 @@ const NavbarMain = ({ user, onLogout, itemCount }) => {
                 <div className="menu">
                   {user ? (
                     <>
-                      <button 
-                        onClick={() => {
-                          setIsMenuOpen(false);
-                          setIsMobileMenuOpen(false);
-                        }} 
-                        className="menu-item"
-                      >
-                        Orders
-                      </button>
                       <button 
                         onClick={() => {
                           onLogout();
