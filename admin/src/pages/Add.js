@@ -94,7 +94,7 @@ const Add = ({ token }) => {
         setFormData({
           name: "",
           description: "",
-          category: "Peripherals",
+          category: "Keyboards",
           price: "",
           bestseller: false,
           images: [null, null, null, null],

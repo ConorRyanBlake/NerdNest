@@ -128,3 +128,30 @@
     color: #ffcc00;
     margin-top: 50px;
 }
+
+/* Error and success messages */
+.error-message {
+    position: absolute;
+    top: 100px;
+    left: 1000px;
+    background-color: rgba(129, 47, 47, 0.2);
+    color: #f87171;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border: 1px solid rgba(248, 113, 113, 0.3);
+  }
+
+  .success-message {
+    position: absolute;
+    top: 100px;
+    left: 1000px;
+    background-color: rgba(47, 129, 90, 0.2);
+    color: #4ade80;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+  }

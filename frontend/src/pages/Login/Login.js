@@ -57,8 +57,8 @@ function Login({ onLogin }) {
           <button type="submit" className="login-btn">
             Login
           </button>
-          {error && <p>{error}</p>}
-          {success && <p>{success}</p>}
+          {error && <p className="add-form-error-message">{error}</p>}
+          {success && <p className="add-form-success-message">{success}</p>}
       </form>
 
     </div>

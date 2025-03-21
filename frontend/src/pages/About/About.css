@@ -36,6 +36,7 @@
 
 .about-section {
   margin-bottom: 4rem;
+  grid-column: 1 / -1;
 }
 
 .about-subheading {
@@ -86,6 +87,116 @@
   line-height: 1.6;
 }
 
+/* Feature Section Styling - Dark Theme */
+.about-section-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #00D4FF;
+  display: inline-block;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.feature-category {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  border-top: 3px solid #00D4FF;
+}
+
+.feature-category:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.feature-category h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-category ul {
+  list-style: none;
+  padding-left: 0.5rem;
+  margin-bottom: 0;
+}
+
+.feature-category li {
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-left: 1.5rem;
+  color: #d1d5db;
+  line-height: 1.6;
+}
+
+.feature-category li:last-child {
+  margin-bottom: 0;
+}
+
+.feature-category li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: #00D4FF;
+  font-weight: bold;
+}
+
+.feature-category li strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.about-list {
+  list-style: none;
+  padding-left: 0.5rem;
+}
+
+.about-list li {
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 1.5rem;
+  color: #d1d5db;
+  line-height: 1.6;
+}
+
+.about-list li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: #00D4FF;
+  font-weight: bold;
+}
+
+.about-list li strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.about-card-conclusion {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #d1d5db;
+  line-height: 1.6;
+  font-style: italic;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .about-grid {
@@ -98,5 +209,9 @@
   
   .about-heading {
     font-size: 2.5rem;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
   }
 }

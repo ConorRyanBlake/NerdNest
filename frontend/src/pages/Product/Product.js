@@ -9,6 +9,8 @@ const Product = ({ user: userId }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   console.log("Product Data:", product);
   console.log("Category:", product?.category, "Subcategory:", product?.subCategory);
@@ -42,9 +44,11 @@ const Product = ({ user: userId }) => {
     const result = await addItemToCart(payload, token);
     
     if (result.success) {
-      alert(result.message);
+      setSuccess(result.message);
+      setTimeout(() => setSuccess(false), 3000);
     } else {
-      alert(result.message);
+      setError(result.message);
+      setTimeout(() => setError(false), 3000);
     }
   };
 
@@ -55,6 +59,8 @@ const Product = ({ user: userId }) => {
   return (
     <div className="product-page-wrapper">
       <div className="product-page">
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
         <div className="product-gallery">
           {product.images.map((image, index) => (
             <img
