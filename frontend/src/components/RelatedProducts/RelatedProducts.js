@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../ProductCard/ProductCard";
 import axios from "axios";
+import { backendURL } from "../../App";
 import "./RelatedProducts.css";
 
 const RelatedProducts = ({ category, currentProductId }) => {
@@ -11,7 +12,7 @@ const RelatedProducts = ({ category, currentProductId }) => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:4000/product/list");
+        const response = await axios.get(backendURL + "/product/list");
         if (response.data.success) {
           // Filter products by category and subcategory, exclude current product
           const filteredProducts = response.data.products.filter(

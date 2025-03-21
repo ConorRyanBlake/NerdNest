@@ -3,6 +3,7 @@ import "./Bestseller.css";
 import axios from "axios";
 import ProductCard from "../ProductCard/ProductCard";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { backendURL } from "../../App";
 
 const BestSeller = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const BestSeller = () => {
   
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/product/list");
+      const response = await axios.get(backendURL + "/product/list");
       const bestSellerProducts = response.data.products.filter(
         (product) => product.bestseller
       );

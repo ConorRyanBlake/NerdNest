@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "./Product.css";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import { addItemToCart } from "../../utils/cartUtils";
+import { backendURL } from "../../App";
 
 const Product = ({ user: userId }) => {
   const { productId } = useParams();
@@ -20,7 +21,7 @@ const Product = ({ user: userId }) => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/product/single/${productId}`
+          `${backendURL}/product/single/${productId}`
         );
         const product = response.data.product;
         setProduct(product);

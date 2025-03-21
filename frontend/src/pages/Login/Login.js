@@ -3,6 +3,7 @@ import "./Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { backendURL } from "../../App"; 
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/user/login", {
+      const response = await axios.post(backendURL + "/user/login", {
         email,
         password,
       });

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { backendURL } from "../../App";
 import "./Collection.css";
 
 const Collection = () => {
@@ -29,7 +30,7 @@ const Collection = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/product/list");
+        const response = await axios.get(backendURL + "/product/list");
         console.log("Fetched products:", response.data);
         setProducts(response.data.products);
         setFilteredProducts(response.data.products); // Set initial filtered products

@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaTrash } from "react-icons/fa";
 import "./Cart.css";
 import { removeItemFromCart, fetchCartCount } from "../../utils/cartUtils";
+import { backendURL } from "../../App";
 
 const CartPage = ({ setItemCount }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -21,7 +22,7 @@ const CartPage = ({ setItemCount }) => {
           return;
         }
 
-        const response = await axios.get("http://localhost:4000/cart/get", {
+        const response = await axios.get( backendURL + "/cart/get", {
           headers: { token },
         });
 

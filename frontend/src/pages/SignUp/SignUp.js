@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { backendURL } from "../../App";
+
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -35,7 +37,7 @@ function SignUp() {
     }
 
     try {
-      await axios.post("http://localhost:4000/user/register", {
+      await axios.post(backendURL + "/user/register", {
         name,
         email,
         password,

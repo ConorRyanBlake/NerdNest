@@ -13,9 +13,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { fetchCartCount } from './utils/cartUtils';
 
+export const backendURL = process.env.REACT_APP_BACKEND_URL;
+
 function App() {
   const [user, setUser] = useState(null);
   const [itemCount, setItemCount] = useState(0);
+
+  console.log("Backend URL:", process.env.REACT_APP_BACKEND_URL);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
