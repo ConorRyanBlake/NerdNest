@@ -98,9 +98,12 @@ const CartPage = ({ setItemCount }) => {
 
             {cartItems.map((item) => (
               <div
-                key={`${item.itemId._id}-${item.size}`}
-                className="cart-item"
-              >
+              key={`${item.itemId._id}-${item.size}`}
+              className="cart-item"
+              data-price={`R${item.itemId.price ? item.itemId.price.toFixed(2) : "N/A"}`}
+              data-quantity={item.quantity}
+              data-subtotal={`R${item.itemId.price ? (item.itemId.price * item.quantity).toFixed(2) : "N/A"}`}
+            >
                 <img
                   src={item.itemId.images?.[0]}
                   alt={item.itemId.name}

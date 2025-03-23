@@ -10,12 +10,14 @@ const Collection = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [sortOption, setSortOption] = useState("recommended");
-  const [priceRange, setPriceRange] = useState([0, 20000]);
-  
+  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [categoryExpanded, setCategoryExpanded] = useState(false);
+  const [priceExpanded, setPriceExpanded] = useState(false);
+
   // Default price range values
   const DEFAULT_MIN_PRICE = 0;
-  const DEFAULT_MAX_PRICE = 20000;
-  
+  const DEFAULT_MAX_PRICE = 10000;
+
   // Refs for slider elements
   const sliderTrackRef = useRef(null);
   const minRangeRef = useRef(null);
@@ -62,7 +64,7 @@ const Collection = () => {
     if (sliderTrackRef.current && minRangeRef.current && maxRangeRef.current) {
       const minPercent = (priceRange[0] / DEFAULT_MAX_PRICE) * 100;
       const maxPercent = (priceRange[1] / DEFAULT_MAX_PRICE) * 100;
-      
+
       sliderTrackRef.current.style.left = `${minPercent}%`;
       sliderTrackRef.current.style.width = `${maxPercent - minPercent}%`;
     }
@@ -109,6 +111,14 @@ const Collection = () => {
     }
   }, [categoryParam, category]);
 
+  const toggleCategoryExpand = () => {
+    setCategoryExpanded(!categoryExpanded);
+  };
+
+  const togglePriceExpand = () => {
+    setPriceExpanded(!priceExpanded);
+  };
+
   // Sort products
   const getSortedProducts = () => {
     return [...filteredProducts].sort((a, b) => {
@@ -132,67 +142,75 @@ const Collection = () => {
       {/* Sidebar Filters */}
       <div className="filter-options">
         {/* Category Filter */}
-        <div className="category-filter">
-          <h2>Browse by</h2>
-          {["Keyboards", "Mice", "Consoles", "Audio", "Accessories", "Furniture"].map((cat) => (
-            <p key={cat}>
-              <input
-                type="checkbox"
-                value={cat}
-                onChange={toggleCategory}
-                checked={category.includes(cat)}
-              />{" "}
-              {cat}
-            </p>
-          ))}
+        <div className={`category-filter ${categoryExpanded ? "active" : ""}`}>
+          <h2 onClick={toggleCategoryExpand}>Browse by</h2>
+          <div className="category-filter-content">
+            {[
+              "Keyboards",
+              "Mice",
+              "Consoles",
+              "Audio",
+              "Accessories",
+              "Furniture",
+            ].map((cat) => (
+              <p key={cat}>
+                <input
+                  type="checkbox"
+                  value={cat}
+                  onChange={toggleCategory}
+                  checked={category.includes(cat)}
+                />{" "}
+                {cat}
+              </p>
+            ))}
+          </div>
         </div>
 
         {/* Price Slider - Updated UI */}
-        <div className="price-filter">
-          <h2>Filter by</h2>
-          
-          <div className="price-range-header">
-            <span>Price</span>
-            <button 
-              className="price-reset-btn" 
-              onClick={resetPriceRange}
-            >
-              Reset
-            </button>
-          </div>
-          
-          <div className="price-range-slider">
-            <div className="slider-track" ref={sliderTrackRef}></div>
-          </div>
-          
-          <div className="price-range-input">
-            <div className="range-input">
-              <input
-                type="range"
-                className="min-range"
-                min={DEFAULT_MIN_PRICE}
-                max={DEFAULT_MAX_PRICE}
-                step="1"
-                value={priceRange[0]}
-                onChange={handleMinPriceChange}
-                ref={minRangeRef}
-              />
-              <input
-                type="range"
-                className="max-range"
-                min={DEFAULT_MIN_PRICE}
-                max={DEFAULT_MAX_PRICE}
-                step="1"
-                value={priceRange[1]}
-                onChange={handleMaxPriceChange}
-                ref={maxRangeRef}
-              />
+        <div className={`price-filter ${priceExpanded ? "active" : ""}`}>
+          <h2 onClick={togglePriceExpand}>Filter by</h2>
+          <div className="price-filter-content">
+            <div className="price-range-header">
+              <span>Price</span>
+              <button className="price-reset-btn" onClick={resetPriceRange}>
+                Reset
+              </button>
             </div>
-          </div>
-          
-          <div className="price-range-values">
-            <span>R{priceRange[0]}</span>
-            <span>R{priceRange[1]}</span>
+
+            {/* Rest of your price filter content */}
+            <div className="price-range-slider">
+              <div className="slider-track" ref={sliderTrackRef}></div>
+            </div>
+
+            <div className="price-range-input">
+              <div className="range-input">
+                <input
+                  type="range"
+                  className="min-range"
+                  min={DEFAULT_MIN_PRICE}
+                  max={DEFAULT_MAX_PRICE}
+                  step="1"
+                  value={priceRange[0]}
+                  onChange={handleMinPriceChange}
+                  ref={minRangeRef}
+                />
+                <input
+                  type="range"
+                  className="max-range"
+                  min={DEFAULT_MIN_PRICE}
+                  max={DEFAULT_MAX_PRICE}
+                  step="1"
+                  value={priceRange[1]}
+                  onChange={handleMaxPriceChange}
+                  ref={maxRangeRef}
+                />
+              </div>
+            </div>
+
+            <div className="price-range-values">
+              <span>R{priceRange[0]}</span>
+              <span>R{priceRange[1]}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -201,6 +219,7 @@ const Collection = () => {
       <div className="product-container">
         <div className="product-title">
           <h1>All Products</h1>
+          <p>All products are from <a href="https://www.evetech.co.za/">evetech</a></p>
         </div>
         <div className="product-header">
           <div className="product-count">
