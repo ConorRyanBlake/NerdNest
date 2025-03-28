@@ -3,10 +3,12 @@ import "./Bestseller.css";
 import axios from "axios";
 import ProductCard from "../ProductCard/ProductCard";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { Spinner } from "react-bootstrap"; 
 import { backendURL } from "../../App";
 
 const BestSeller = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
@@ -14,6 +16,7 @@ const BestSeller = () => {
   
   const fetchProducts = async () => {
     try {
+      setIsLoading(true); // Set loading to true before fetch
       const response = await axios.get(backendURL + "/product/list");
       const bestSellerProducts = response.data.products.filter(
         (product) => product.bestseller
@@ -21,6 +24,8 @@ const BestSeller = () => {
       setProducts(bestSellerProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false); // Set loading to false after fetch (success or error)
     }
   };
 
@@ -95,32 +100,43 @@ const BestSeller = () => {
         </p>
 
         <div className="carousel-wrapper">
-          <button
-            className={`carousel-arrow carousel-arrow-left ${isScrolling ? 'scrolling' : ''}`}
-            onClick={scrollLeft}
-            aria-label="Scroll left"
-            disabled={isAtStart || isScrolling}
-          >
-            <FaArrowLeft />
-          </button>
+          {isLoading ? (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: "100px",  color: "white" }}>
+              <p className="mx-3">Loading...</p>
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <>
+              <button
+                className={`carousel-arrow carousel-arrow-left ${isScrolling ? 'scrolling' : ''}`}
+                onClick={scrollLeft}
+                aria-label="Scroll left"
+                disabled={isAtStart || isScrolling}
+              >
+                <FaArrowLeft />
+              </button>
 
-          <div 
-            className="product-carousel" 
-            ref={carouselRef}
-          >
-            {products.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
+              <div 
+                className="product-carousel" 
+                ref={carouselRef}
+              >
+                {products.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
 
-          <button
-            className={`carousel-arrow carousel-arrow-right ${isScrolling ? 'scrolling' : ''}`}
-            onClick={scrollRight}
-            aria-label="Scroll right"
-            disabled={isAtEnd || isScrolling}
-          >
-            <FaArrowRight />
-          </button>
+              <button
+                className={`carousel-arrow carousel-arrow-right ${isScrolling ? 'scrolling' : ''}`}
+                onClick={scrollRight}
+                aria-label="Scroll right"
+                disabled={isAtEnd || isScrolling}
+              >
+                <FaArrowRight />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 import { backendURL } from "../../App";
 import "./Collection.css";
 
@@ -13,6 +14,7 @@ const Collection = () => {
   const [priceRange, setPriceRange] = useState([0, 10000]);
   const [categoryExpanded, setCategoryExpanded] = useState(false);
   const [priceExpanded, setPriceExpanded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Default price range values
   const DEFAULT_MIN_PRICE = 0;
@@ -32,12 +34,15 @@ const Collection = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(backendURL + "/product/list");
         console.log("Fetched products:", response.data);
         setProducts(response.data.products);
         setFilteredProducts(response.data.products); // Set initial filtered products
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -219,7 +224,10 @@ const Collection = () => {
       <div className="product-container">
         <div className="product-title">
           <h1>All Products</h1>
-          <p>All products are from <a href="https://www.evetech.co.za/">evetech</a></p>
+          <p>
+            All products are from{" "}
+            <a href="https://www.evetech.co.za/">evetech</a>
+          </p>
         </div>
         <div className="product-header">
           <div className="product-count">
@@ -245,7 +253,14 @@ const Collection = () => {
 
         {/* Display Sorted Products */}
         <div className="product-grid">
-          {getSortedProducts().length > 0 ? (
+          {isLoading ? (
+            <div className="d-flex justify-content-center align-items-center">
+              <p className="mx-3">Loading...</p>
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : getSortedProducts().length > 0 ? (
             getSortedProducts().map((product) => (
               <ProductCard key={product._id} product={product} />
             ))
