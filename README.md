@@ -15,10 +15,31 @@ Nerdnest is a full-stack e-commerce platform designed to provide a seamless onli
 - **Admin Dashboard**: Manage products, orders, and users.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
 
+### Images: 
+![Frontend1](/frontend/src/assets/Screenshot1.png)
+![Frontend1](/frontend/src/assets/Screenshot2.png)
+![Frontend1](/fronend/src/assets/Screenshot3.png)
+
+## Admin Panel
+The Nerdnest admin panel provides a comprehensive interface for managing the e-commerce platform efficiently.
+
+### Features:
+- **Dashboard Overview**: View sales analytics, total orders, and user activity.
+- **Product Management**: Add, edit, and remove products.
+- **Order Management**: Track and update order statuses in real time.
+- **User Management**: View registered users and manage their roles.
+- **Inventory Control**: Monitor stock levels and update product availability.
+- **Reports & Insights**: Generate reports on sales, user activity, and product performance.
+
+### Images:
+![Admin-Panel1](/admin/src/assets/Screenshot1.png)
+![Admin-Panel2](/admin/src/assets/Screenshot2.png)
+
 ## Tech Stack
 - **Frontend**: React, Redux, Axios, Bootstrap
 - **Backend**: Node.js, Express.js, MongoDB, Mongoose
 - **Authentication**: JWT (JSON Web Tokens)
 - **State Management**: Redux Toolkit
-- **Styling**: Bootstrap & CSS 
+- **Styling**: Bootstrap & CSS
 - **API Calls**: Axios for HTTP requests
+
