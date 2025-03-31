@@ -21,15 +21,10 @@ Nerdnest is a full-stack e-commerce platform designed to provide a seamless onli
 ![Frontend3](/frontend/src/assets/Screenshot3.png)
 
 ## Admin Panel
-The Nerdnest admin panel provides a comprehensive interface for managing the e-commerce platform efficiently.
+The Nerdnest admin panel provides a simple interface for managing the e-commerce platform efficiently.
 
 ### Features:
-- **Dashboard Overview**: View sales analytics, total orders, and user activity.
-- **Product Management**: Add, edit, and remove products.
-- **Order Management**: Track and update order statuses in real time.
-- **User Management**: View registered users and manage their roles.
-- **Inventory Control**: Monitor stock levels and update product availability.
-- **Reports & Insights**: Generate reports on sales, user activity, and product performance.
+- **Product Management**: Add, edit, view and remove products.
 
 ### Images:
 ![Admin-Panel1](/admin/src/assets/Screenshot1.png)
