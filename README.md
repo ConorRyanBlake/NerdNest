@@ -17,8 +17,8 @@ Nerdnest is a full-stack e-commerce platform designed to provide a seamless onli
 
 ### Images: 
 ![Frontend1](/frontend/src/assets/Screenshot1.png)
-![Frontend1](/frontend/src/assets/Screenshot2.png)
-![Frontend1](/fronend/src/assets/Screenshot3.png)
+![Frontend2](/frontend/src/assets/Screenshot2.png)
+![Frontend3](/frontend/src/assets/Screenshot3.png)
 
 ## Admin Panel
 The Nerdnest admin panel provides a comprehensive interface for managing the e-commerce platform efficiently.
